@@ -126,13 +126,13 @@
 
 ;;; auto-complete ;;;
 ;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(require 'auto-complete-config)
-(ac-config-default)
+;(require 'auto-complete-config)
+;(ac-config-default)
 ;(define-key ac-mode-map (kbd “M-TAB”) ‘auto-complete)
 ;(global-set-key "\257" (quote auto-complete)) ; "M-/"
-(global-set-key "\351" (quote auto-complete)) ; "M-i"
+;(global-set-key "\351" (quote auto-complete)) ; "M-i"
 ;(global-set-key "	" (quote auto-complete)) ; "TAB"
-(ac-set-trigger-key "	") ; "TAB"
+;(ac-set-trigger-key "	") ; "TAB"
 
 ;;; auto-install.el ;;;
 (require 'auto-install)
@@ -141,7 +141,7 @@
 (add-to-list 'load-path "~/.emacs.d/auto-install")
 
 ;;; anything.el ;;;
-(require 'anything-startup)
+;(require 'anything-startup)
 
 ;;; haskell-mode.el ;;;
 ;;; from http://d.hatena.ne.jp/kitokitoki/20111217/p1
@@ -160,65 +160,6 @@
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-;;
-;; ghc-browse-document() on anything
-;;
-(require 'anything)
-(require 'anything-config)
-(require 'anything-match-plugin)
-(defvar anything-c-source-ghc-mod
-  '((name . "ghc-browse-document")
-    (init . anything-c-source-ghc-mod)
-    (candidates-in-buffer)
-    (candidate-number-limit . 9999999)
-    (action ("Open" . anything-c-source-ghc-mod-action))))
-(defun anything-c-source-ghc-mod ()
-  (unless (executable-find "ghc-mod")
-    (error "ghc-mod を利用できません。ターミナルで which したり、*scratch* で exec-path を確認したりしましょう"))
-  (let ((buffer (anything-candidate-buffer 'global)))
-    (with-current-buffer buffer
-      (call-process "ghc-mod" nil t t "list"))))
-(defun anything-c-source-ghc-mod-action (candidate)
-  (interactive "P")
-  (let* ((pkg (ghc-resolve-package-name candidate)))
-    (anything-aif (and pkg candidate)
-        (ghc-display-document pkg it nil)
-      (message "No document found"))))
-(defun anything-ghc-browse-document ()
-  (interactive)
-  (anything anything-c-source-ghc-mod))
-;; M-x anything-ghc-browse-document() に対応するキーの割り当て
-;; ghc-mod の設定のあとに書いた方がよいかもしれません
-(add-hook 'haskell-mode-hook
-  (lambda()
-    (define-key haskell-mode-map (kbd "C-M-d") 'anything-ghc-browse-document)))
-;
-; auto-complete for ghc-mod
-;
-;; https://github.com/m2ym/auto-complete
-(ac-define-source ghc-mod
-  '((depends ghc)
-    (candidates . (ghc-select-completion-symbol))
-    (symbol . "s")
-    (cache)))
-(defun my-ac-haskell-mode ()
-  (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-dictionary ac-source-ghc-mod)))
-(add-hook 'haskell-mode-hook 'my-ac-haskell-mode)
-(defun my-haskell-ac-init ()
-  (when (member (file-name-extension buffer-file-name) '("hs" "lhs"))
-    (auto-complete-mode t)
-    (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-dictionary ac-source-ghc-mod))))
-(add-hook 'find-file-hook 'my-haskell-ac-init)
-
-;
-; anything-hasktags 
-; http://d.hatena.ne.jp/kitokitoki/20111217/p1
-; 
-(require 'anything-hasktags)
-(add-hook 'haskell-mode-hook
-  (lambda()
-    (define-key haskell-mode-map (kbd "C-c j") 'anything-hasktags-select)))
-
 
 ; enable major mode for every setting files.
 ;   http://rubikitch.com/2014/08/03/
