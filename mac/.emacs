@@ -88,7 +88,7 @@
 
 
 ;;;; global ;;;;
-(global-set-key "\C-J" (quote goto-line))
+;(global-set-key "\C-J" (quote goto-line))
 (global-set-key "\362" (quote replace-string))
 (global-set-key "" (quote revert-buffer))
 (global-set-key "\C-h" (quote delete-backward-char))
@@ -157,9 +157,26 @@
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
 (add-to-list 'load-path "~/Library/Haskell/ghc-7.6.3/lib/ghc-mod-3.1.7/share") 
+(add-to-list 'load-path "~/Library/Haskell/ghc-7.6.3/lib/hlint-1.8.59/share")
 (autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+;(autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
+
+(require 'flycheck)
+(require 'flycheck-haskell)
+;(require 'flycheck-hdevtools)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+(add-hook 'haskell-mode-hook
+	  '(lambda ()
+	     (ghc-init)
+             (setq flycheck-checker 'haskell-ghc)
+;             (setq flycheck-checker 'haskell-hlint)
+;             (setq flycheck-disabled-checkers '(haskell-ghc))
+             (setq flycheck-disabled-checkers '(haskell-hlint))
+	     (flycheck-mode 1)
+	     (turn-on-haskell-indent)))
+
+
 
 ; enable major mode for every setting files.
 ;   http://rubikitch.com/2014/08/03/
@@ -190,3 +207,16 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+;;; gtags ;;;
+(require 'gtags)
+(add-hook 'java-mode-hook (lambda () (gtags-mode 1)))
+(add-hook 'c-mode-hook (lambda () (gtags-mode 1)))
+(add-hook 'c++-mode-hook (lambda () (gtags-mode 1)))
+(setq gtags-mode-hook
+      '(lambda ()
+         (local-set-key "\M-." 'gtags-find-tag)
+         (local-set-key "\M-," 'gtags-find-rtag)
+         (local-set-key "\M-s" 'gtags-find-symbol)
+         (local-set-key "\C-j" 'gtags-pop-stack)
+         ))
