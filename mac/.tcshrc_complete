@@ -1,0 +1,289 @@
+complete cd          p/1/d/
+complete chdir         p/1/d/
+complete pushd         p/1/d/
+complete popd         p/1/d/
+complete pu         p/1/d/
+complete po         p/1/d/
+complete complete         p/1/X/                # Completions only
+complete uncomplete        'n/*/X/'
+complete exec         p/1/c/                # Commands only
+complete trace         p/1/c/
+complete strace         p/1/c/
+complete which        'n/*/c/'
+complete where        'n/*/c/'
+complete skill         p/1/c/
+complete dde        p/1/c/ 
+complete adb        c/-I/d/ n/-/c/ N/-/"(core)"/ p/1/c/ p/2/"(core)"/
+complete sdb        p/1/c/
+complete dbx        c/-I/d/ n/-/c/ N/-/"(core)"/ p/1/c/ p/2/"(core)"/
+complete xdb        p/1/c/
+complete gdb        n/-d/d/ 'n/*/c/'
+complete ups        p/1/c/
+complete set        'c/*=/f/' 'p/1/s/=' 'n/=/f/'
+complete unset        'n/*/s/'
+complete alias         p/1/a/                # only aliases are valid
+complete unalias        'n/*/a/'
+complete su                c/--/"(login fast preserve-environment command shell \
+                        help version)"/        c/-/"(f l m p c s -)"/ \
+                        n/{-c,--command}/c/ \
+                        n@{-s,--shell}@'`cat /etc/shells`'@ 'n/*/u/'
+complete gcc         'c/-[IL]/d/' \
+                         c/-f/"(caller-saves cse-follow-jumps delayed-branch \
+                               elide-constructors expensive-optimizations \
+                               float-store force-addr force-mem inline \
+                               inline-functions keep-inline-functions \
+                               memoize-lookups no-default-inline \
+                               no-defer-pop no-function-cse omit-frame-pointer \
+                               rerun-cse-after-loop schedule-insns \
+                               schedule-insns2 strength-reduce \
+                               thread-jumps unroll-all-loops \
+                               unroll-loops syntax-only all-virtual \
+                               cond-mismatch dollars-in-identifiers \
+                               enum-int-equiv no-asm no-builtin \
+                               no-strict-prototype signed-bitfields \
+                               signed-char this-is-variable unsigned-bitfields \
+                               unsigned-char writable-strings call-saved-reg \
+                               call-used-reg fixed-reg no-common \
+                               no-gnu-binutils nonnull-objects \
+                               pcc-struct-return pic PIC shared-data \
+                               short-enums short-double volatile)"/ \
+                         c/-W/"(all aggregate-return cast-align cast-qual \
+                                     comment conversion enum-clash error format \
+                                     id-clash-len implicit missing-prototypes \
+                                     no-parentheses pointer-arith return-type shadow \
+                                     strict-prototypes switch uninitialized unused \
+                                     write-strings)"/ \
+                         c/-m/"(68000 68020 68881 bitfield fpa nobitfield rtd \
+                               short c68000 c68020 soft-float g gnu unix fpu \
+                               no-epilogue)"/ \
+                         c/-d/"(D M N)"/ \
+                         c/-/"(f W vspec v vpath ansi traditional \
+                              traditional-cpp trigraphs pedantic x o l c g L \
+                              I D U O O2 C E H B b V M MD MM i dynamic \
+                              nodtdlib static nostdinc undef)"/ \
+                         'c/-l/f:*.a/' \
+                         'n/*/f:*.{c,C,cc,o,a,s,i}/'
+complete g++         'n/*/f:*.{C,cc,o,s,i}/'
+complete CC         'n/*/f:*.{C,cc,cpp,o,s,i}/'
+complete rm         c/--/"(directory force interactive verbose \
+                        recursive help version)"/ c/-/"(d f i v r R -)"/ \
+                        'n/*/f:^*.{c,cc,C,h,in}/'        # Protect precious files
+complete vi         'n/*/f:^*.[oa]/'
+
+
+complete find         n/-fstype/"(nfs 4.2)"/ n/-name/f/ \
+                          n/-type/"(c b d f p l s)"/ n/-user/u/ n/-group/g/ \
+                        n/-exec/c/ n/-ok/c/ n/-cpio/f/ n/-ncpio/f/ n/-newer/f/ \
+                          c/-/"(fstype name perm prune type user nouser \
+                               group nogroup size inum atime mtime ctime exec \
+                             ok print ls cpio ncpio newer xdev depth \
+                             daystart follow maxdepth mindepth noleaf version \
+                             anewer cnewer amin cmin mmin true false uid gid \
+                             ilname iname ipath iregex links lname empty path \
+                             regex used xtype fprint fprint0 fprintf \
+                             print0 printf not a and o or)"/ \
+                             'n/*/d/'
+
+
+    # these and interrupt handling from Jaap Vermeulen <jaap@sequent.com>
+complete kill        'c/-/S/' 'c/%/j/' \
+                        'n/*/`ps -u $LOGNAME | awk '"'"'{print $1}'"'"'`/'
+
+
+complete perl        'n/-S/c/'
+complete printenv        'n/*/e/'
+complete sccs        p/1/"(admin cdc check clean comb deledit delget \
+                        delta diffs edit enter fix get help info \
+                        print prs prt rmdel sccsdiff tell unedit \
+                        unget val what)"/
+complete setenv        'p/1/e/' 'c/*:/f/'
+
+
+complete bison        'c/--/(debug defines file-prefix= fixed-output-files \
+                        help name-prefix= no-lines no-parser output= \
+                        token-table verbose version yacc)/' \
+                        'c/-/(b d h k l n o p t v y V)/' 'n/-b/f/' 'n/-o/f/' \
+                        'n/-p/f/'
+complete bzcat        c/--/"(help test quiet verbose license version)"/ \
+                        c/-/"(h t L V -)"/ 'n/*/f:*.{bz2,tbz}/'
+complete bunzip2        c/--/"(help keep force test stdout quiet verbose \
+                        license version)"/ c/-/"(h k f t c q v L V -)"/ \
+                        'n/*/f:*.{bz2,tbz}/'
+complete bzip2        c/--/"(help decompress compress keep force test \
+                        stdout quiet verbose license version small)"/ \
+                        c/-/"(h d z k f t c q v L V s 1 2 3 4 5 6 7 8 9 -)"/ \
+                        'n/{-d,--decompress}/f:*.{bz2,tbz}/' \
+                        'N/{-d,--decompress}/f:*.{bz2,tbz}/' 'n/*/f:^*.{bz2,tbz}/'
+complete c++        'p/*/f:*.{c++,cxx,c,cc,C,cpp}/'
+complete co                'p@1@`\ls -1a RCS | sed -e "s/\(.*\),v/\1/"`@'
+complete crontab        'n/-u/u/'
+complete camcontrol        'p/1/(cmd debug defects devlist eject inquiry \
+                        modepage negotiate periphlist rescan reset start \
+                        stop tags tur)/'
+complete ctlinnd        'p/1/(addhist allow begin cancel changegroup \
+                        checkfile drop feedinfo flush flushlogs go hangup \
+                        logmode mode name newgroup param pause readers refile \
+                        reject reload renumber reserve rmgroup send shutdown \
+                        kill throttle trace xabort xexec)/'
+complete cvs        'c/--/(help help-commands help-synonyms)/' \
+                        'p/1/(add admin annotate checkout commit diff \
+                        edit editors export history import init log login \
+                        logout rdiff release remove rtag status tag unedit \
+                        update watch watchers)/' 'n/-a/(edit unedit commit \
+                        all none)/' 'n/watch/(on off add remove)/'
+complete svn         'C@file:///@`'"${HOME}/etc/tcsh/complete.d/svn"'`@@' \
+                        'n@ls@(file:/// svn+ssh:// svn://)@@' \
+                        'n@help@(add blame cat checkout \
+                        cleanup commit copy delete export help \
+                        import info list ls lock log merge mkdir \
+                        move propdel propedit propget proplist \
+                        propset resolved revert status switch unlock \
+                        update)@' 'p@1@(add blame cat checkout \
+                        cleanup commit copy delete export help \
+                        import info list ls lock log merge mkdir \
+                        move propdel propedit propget proplist \
+                        propset resolved revert status switch unlock \
+                        update)@'
+complete git         'n@help@(add bisect branch checkoutclone \
+                                 commit diff fetch grep init log merge mv \
+                        pull push rebase reset rm show status tag)@' \
+                        'p@1@(add bisect branch checkoutclone \
+                                 commit diff fetch grep init log merge mv \
+                        pull push rebase reset rm show status tag)@'
+complete cxx        'p/*/f:*.{c++,cxx,c,cc,C,cpp}/'
+
+
+
+complete wget         c/--/"(accept= append-output= background cache= \
+                        continue convert-links cut-dirs= debug \
+                        delete-after directory-prefix= domains= \
+                        dont-remove-listing dot-style= exclude-directories= \
+                        exclude-domains= execute= follow-ftp \
+                        force-directories force-html glob= header= help \
+                        http-passwd= http-user= ignore-length \
+                        include-directories= input-file= level= mirror \
+                        no-clobber no-directories no-host-directories \
+                        no-host-lookup no-parent non-verbose \
+                        output-document= output-file= passive-ftp \
+                        proxy-passwd= proxy-user= proxy= quiet quota= \
+                        recursive reject= relative retr-symlinks save-headers \
+                        server-response span-hosts spider timeout= \
+                        timestamping tries= user-agent= verbose version wait=)"/
+
+
+
+
+
+
+
+complete sed        c/--/"(quiet silent version help expression file)"/   \
+                        c/-/"(n V e f -)"/ n/{-e,--expression}/x:'<script>'/  \
+                        'n/{-f,--file}/f:*.sed/' N/-{e,f,-{file,expression}}/f/ \
+                        n/-/x:'<script>'/ N/-/f/ p/1/x:'<script>'/ p/2/f/
+
+
+complete users        c/--/"(help version)"/ p/1/x:'<accounting_file>'/
+complete who        c/--/"(heading idle count mesg message writable help \
+                            version)"/ c/-/"(H i m q s T w u -)"/ \
+                        p/1/x:'<accounting_file>'/ n/am/"(i)"/ n/are/"(you)"/
+
+
+complete chgrp        c/--/"(changes no-dereference silent quiet reference \
+                            recursive verbose help version)"/ \
+                        c/-/"(c f h R v -)"/ n/-/g/ p/1/g/ 'n/*/f/'
+complete chmod        c/--/"(changes silent quiet verbose reference \
+                            recursive help version)"/ c/-/"(c f R v)"/
+complete df                c/--/"(all block-size human-readable si inodes \
+                        kilobytes local megabytes no-sync portability sync \
+                        type print-type exclude-type help version)"/ \
+                        c/-/"(a H h i k l m P T t v x)"/
+complete du                c/--/"(all block-size bytes total dereference-args \
+                            human-readable si kilobytes count-links dereference \
+                        megabytes separate-dirs summarize one-file-system \
+                        exclude-from exclude max-depth help version"/ \
+                        c/-/"(a b c D H h k L l m S s X x)"/
+
+
+complete cat        c/--/"(number-nonblank number squeeze-blank show-all \
+                        show-nonprinting show-ends show-tabs help version)"/ \
+                        c/-/"(A b E e n s T t u v -)"/ 'n/*/f/'
+complete mv                c/--/"(backup force interactive update verbose suffix \
+                        version-control help version)"/ \
+                        c/-/"(b f i S u V v -)"/ \
+                        n/{-S,--suffix}/x:'<suffix>'/ \
+                        n/{-V,--version-control}/"(t numbered nil existing \
+                        never simple)"/ n/-/f/ N/-/d/ p/1/f/ 'n/*/f/'
+complete cp                c/--/"(archive backup no-dereference force \
+                            interactive link preserve parents sparse recursive \
+                        symbolic-link suffix update verbose version-control \
+                        one-file-system help version)"/ \
+                        c/-/"(a b d f i l P p R r S s u V v x -)"/ \
+                        'n/-*r/d/' n/{-S,--suffix}/x:'<suffix>'/ \
+                        n/{-V,--version-control}/"(t numbered nil existing \
+                        never simple)"/ n/-/f/ N/-/d/ p/1/f/ 'n/*/f/'
+complete ln                c/--/"(backup directory force no-dereference \
+                            interactive symbolic suffix verbose version-control \
+                        help version)"/ \
+                        c/-/"(b d F f i n S s V v -)"/ \
+                        n/{-S,--suffix}/x:'<suffix>'/ \
+                        n/{-V,--version-control}/"(t numbered nil existing \
+                        never simple)"/ n/-/f/ N/-/x:'<link_name>'/ \
+                        p/1/f/ p/2/x:'<link_name>'/
+complete touch        c/--/"(date reference time help version)"/ \
+                        c/-/"(a c d f m r t -)"/ \
+                        n/{-d,--date}/x:'<date_string>'/ \
+                        c/--time/"(access atime mtime modify use)"/ \
+                        n/{-r,--file}/f/ n/-t/x:'<time_stamp>'/ 'n/*/f/'
+complete mkdir        c/--/"(mode parents verbose help version)"/ \
+                            c/-/"(p m -)"/ \
+                        n/{-m,--mode}/x:'<mode>'/ 'n/*/d/'
+complete rmdir        c/--/"(ignore-fail-on-non-empty parents verbose help \
+                            version)"/ c/-/"(p -)"/ 'n/*/d/'
+complete env         'c/*=/f/' 'p/1/e/=/' 'p/2/c/'
+
+### haskell settings ###
+complete ghc         c/-v/"(0 1 2 3 4 5)"/ \
+                                 c/-i/d/ \
+                                 c/--/"(interactive make mk-dll help show-iface \
+                              supported-extensions supported-languages \
+                              info version numeric-version print-libdir)"/ \
+                        c/-W/"(all error warn)"/ \
+                        c/-{fwarn-,fno-warn-}/"(unrecognised-pragmas \
+                               warnings-deprecations deprecated-flags \
+                               unsupported-calling-conventions \
+                               dodgy-foreign-imports dodgy-exports \
+                               dodgy-imports lazy-unlifted-bindings \
+                               duplicate-exports hi-shadowing \
+                               identities implicit-prelude \
+                               incomplete-patterns incomplete-uni-patterns \
+                               missing-fields missing-import-lists \
+                               missing-methods missing-signatures \
+                               missing-local-sigs name-shadowing \
+                               orphans auto-orphans overlapping-patterns \
+                               tabs type-defaults monomorphism-restriction \
+                               unused-binds unused-imports unused-matches \
+                               unused-do-bind wrong-do-bind )"/ \
+                        c/-f/"(defer-type-errors helpful-errors \
+                               force-recomp warn- no-warn-)"/ \
+                         c/-/"(E C S c fglasgow-exts O prof H14m M e V w\
+                              ferror-spans ghc-timing fforce-recomp ?)"/ \
+                        n/-{odir,hidir,stubdir,dumpdir,outputdir,tmpdir}/d/ \
+                        'n/--make/f:*.hs/' \
+                         'n/*/f:*.hs/'
+
+
+complete ghci        c/-i/d/ \
+                                 c/-/"(fglasgow-exts H32m cpp i)"/
+
+
+complete cabal        c/--{config-file,sndbox-config-file}=/f/ \
+                        c/--/"(help version numeric-version config-file= \
+                                       sandbox-config-file=)"/ \
+                        p/1/"(install update list info fetch get check \
+                             sdist upload report run init configure build \
+                             repl sandbox copy haddock clean hscolour \
+                             register test bench help)"/
+
+
+complete yesod	     p/1/"(init hsfiles configure build touch devel test \
+	 	           add-handler keter version)"/

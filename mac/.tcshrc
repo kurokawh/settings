@@ -1,0 +1,115 @@
+#set prompt = '%B[%m:%/] '
+set prompt = '[%m:%/]% '
+unset	autologout
+set path = (/Users/kurokawa/bin /Users/kurokawa/Library/Haskell/bin /usr/local/bin /opt/local/bin /opt/local/sbin /bin /sbin /usr/bin /usr/sbin /usr/X11/bin)
+
+set nobeep
+#unsetenv	LANG
+#setenv	LANG	C
+#setenv	LANG	ja_JP.eucJP
+setenv	LANG	ja_JP.UTF-8
+## force LANG C
+#alias	man	'env LANG=C man'
+#alias	make	'env LANG=C make'
+#alias	svn	'env LANG=C svn' # error occurs
+#umask	022
+umask	002
+
+limit coredumpsize 32000
+
+
+alias	ll	ls -lF
+alias	ls	ls -F
+alias	h	history 40
+alias	hh	history
+#alias	find	"find \!* -noleaf"
+alias	hexdump	hexdump -C
+alias	cp-f	"\cp -f"
+alias	cp	'cp -i'
+alias	ec	emacsclient
+alias	lv	lv -c
+alias	les	lv # to use lv instead of less
+
+alias	rxvt	rxvt -foreground white -background black
+alias	xterm	xterm -foreground white -background black
+alias	settitle	'echo -n "\033]0;\!:1" ; echo -n "\007"'
+alias	cls	echo -e '\0033\0143'
+alias	path_sed	'echo $PATH | sed "s/:/\n/g"'
+alias	gpg_check	'gpg --list-only'
+alias	mkdircd	'mkdir -p $1; cd $1'
+#alias	soap	java org.apache.soap.util.net.TcpTunnelGui 49152 localhost 8080
+alias	soap	java org.apache.soap.util.net.TcpTunnelGui
+
+alias	rmbak	'rm *~ #*# .*~'
+alias	te	emacs -nw
+alias	gte	gnome-text-editor
+alias	bak	cd -
+alias	back	cd -
+#alias	set	echo use setenv not set
+alias	psall	'ps -aux | grep kurokawa'
+
+alias	bz2	'bzip2 -dc $1 | tar xvf -'
+alias	bz2t	'bzip2 -dc $1 | tar tvf -'
+alias	enscript_hs	'enscript --highlight=haskell --color -C -o ~/tmp/out.html --language=html'
+alias	enscript_cpp	'enscript --highlight=cpp --color -C -o ~/tmp/out.html --language=html'
+alias	enscript_elisp	'enscript --highlight=elisp --color -C -o ~/tmp/out.html --language=html'
+alias	hasktags-r	'hasktags -e *.hs */*.hs */*/*.hs'
+
+
+### svn ###
+alias   lsco    "svn stat \!* | grep -v ^\?"
+alias   lsup    "svn stat -u \!* | grep -v ^\?"
+alias   rmtmpf  'svn stat --no-ignore \!* | grep "^[\?|I]" | cut -c 8- | xargs rm '
+alias   rmtmpd  'svn stat --no-ignore \!* | grep "^[\?|I]" | cut -c 8- | xargs rm -rf '
+alias	svn	'svn --non-interactive'
+
+
+### for dev ###
+alias	psall	'ps aux | grep kurokawa'
+alias	tmppup	"mkdir -p tmp/PSP2/UPDATE; cd tmp/PSP2/UPDATE; ln -s ../../../\!:1 PSP2UPDAT.PUP; cd ../../.."
+
+set CLIENT_IP=`echo $SSH_CLIENT | awk '{print $1}'`
+set TMP_IP=`echo $CLIENT_IP | awk -F : '{print $1}'`
+#if ( $TMP_IP=="" ) then
+#    set CLIENT_IP=`echo $CLIENT_IP | awk -F : '{print $4}'`
+#else
+#    set CLIENT_IP=$TMP_IP
+#endif
+setenv REMOTEHOST $CLIENT_IP
+
+setenv	DISPLAY	${REMOTEHOST}:0.0
+setenv	EDITOR	'emacs -nw'
+setenv	LESS	'--RAW-CONTROL-CHARS'  # -X is not needed because of my terminfo setting.
+setenv	PAGER	'lv -c'
+setenv	LD_LIBRARY_PATH	/home/kurokawa/lib:/usr/local/lib:/lib:/usr/lib
+
+#setenv	JAVA_HOME	$HOME/java/jdk1.3.1_03
+#setenv	CLASSPATH	.:$HOME/java/jar/activation.jar:$HOME/java/jar/soap.jar:$HOME/java/jar/xerces.jar:$HOME/java/jar/mail.jar:/opt/jar/bsf.jar:$HOME/java/jar/js.jar
+#set path = ($JAVA_HOME/bin $path)
+
+setenv GIT_PAGER "less -R" # "ESC[1m"
+### ccache
+setenv	MPATROL_OPTIONS	"LOGALL PROF TRACE"
+setenv CCACHE ccache
+setenv COMPILER_PREFIX ccache
+### distcc
+setenv NUM_JOBS "-j 2"
+setenv DISTCC_HOSTS localhost
+setenv DISTCC distcc
+setenv CCACHE_PREFIX distcc
+
+### cppunit-x
+setenv CPPUNIT_DIR $HOME/tool/cppunit-x-20020331-cell/cppunit
+setenv CPPUNIT_DIR_LINUX $HOME/tool/cppunit-x-20020331/cppunit
+
+
+### for mac ###
+#alias emacs /Applications/Emacs.app/Contents/MacOS/Emacs
+alias emacs /Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs
+alias hsdoc /Library/Haskell/doc/index.html
+alias diffmerge /Applications/DiffMerge.app/Contents/MacOS/DiffMerge
+alias threadscope ~/Applications/threadscope.app/Contents/MacOS/threadscope
+alias wireshark /Applications/Wireshark.app/Contents/MacOS/Wireshark
+
+
+source ~/.tcshrc_complete
