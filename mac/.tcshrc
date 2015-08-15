@@ -29,6 +29,7 @@ alias	cp	'cp -i'
 alias	ec	emacsclient
 alias	lv	lv -c
 alias	les	lv # to use lv instead of less
+alias	grep	'grep -a' # because GREP_OPTIONS is deprecated.
 
 alias	rxvt	rxvt -foreground white -background black
 alias	xterm	xterm -foreground white -background black
@@ -37,23 +38,28 @@ alias	cls	echo -e '\0033\0143'
 alias	path_sed	'echo $PATH | sed "s/:/\n/g"'
 alias	gpg_check	'gpg --list-only'
 alias	mkdircd	'mkdir -p $1; cd $1'
+alias	json_py	'python -mjson.tool'
 #alias	soap	java org.apache.soap.util.net.TcpTunnelGui 49152 localhost 8080
-alias	soap	java org.apache.soap.util.net.TcpTunnelGui
+#alias	soap	java org.apache.soap.util.net.TcpTunnelGui
 
 alias	rmbak	'rm *~ #*# .*~'
 alias	te	emacs -nw
 alias	gte	gnome-text-editor
-alias	bak	cd -
-alias	back	cd -
+#alias	bak	cd -
+#alias	back	cd -
 #alias	set	echo use setenv not set
 alias	psall	'ps -aux | grep kurokawa'
 
+alias	zip	'zip -r'
+alias	zip_pass	'zip -P'
 alias	bz2	'bzip2 -dc $1 | tar xvf -'
 alias	bz2t	'bzip2 -dc $1 | tar tvf -'
 alias	enscript_hs	'enscript --highlight=haskell --color -C -o ~/tmp/out.html --language=html'
 alias	enscript_cpp	'enscript --highlight=cpp --color -C -o ~/tmp/out.html --language=html'
 alias	enscript_elisp	'enscript --highlight=elisp --color -C -o ~/tmp/out.html --language=html'
+alias	enscript_sql	'enscript --highlight=sql --color -C -o ~/tmp/out.html --language=html'
 alias	hasktags-r	'hasktags -e *.hs */*.hs */*/*.hs'
+#alias	cabal	env LANG= cabal
 
 
 ### svn ###
@@ -81,6 +87,7 @@ setenv	DISPLAY	${REMOTEHOST}:0.0
 setenv	EDITOR	'emacs -nw'
 setenv	LESS	'--RAW-CONTROL-CHARS'  # -X is not needed because of my terminfo setting.
 setenv	PAGER	'lv -c'
+#setenv	GREP_OPTIONS	'-a'	# Process a binary file as if it were text.
 setenv	LD_LIBRARY_PATH	/home/kurokawa/lib:/usr/local/lib:/lib:/usr/lib
 
 #setenv	JAVA_HOME	$HOME/java/jdk1.3.1_03
