@@ -156,8 +156,8 @@
 ;(add-to-list 'exec-path (concat (getenv "HOME") "/.cabal/bin"))
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
-(add-to-list 'load-path "/cygdrive/c/Users/Hiroyuki/AppData/Roaming/cabal/x86_64-windows-ghc-7.8.3/ghc-mod-5.2.1.2/") 
-(add-to-list 'load-path "/cygdrive/c/Users/Hiroyuki/AppData/Roaming/cabal/x86_64-windows-ghc-7.8.3/hlint-1.9.19/") 
+(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.8.3/ghc-mod-5.2.1.2/")
+(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.8.3/hlint-1.9.19/")
 (autoload 'ghc-init "ghc" nil t)
 ;(autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
 
@@ -232,5 +232,5 @@
 (setq gtags-select-mode-hook
       '(lambda ()
          (local-set-key "\C-j\C-j" 'gtags-pop-stack)
-	 (local-set-key "" 'gtags-pop-stack)
+	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
          ))
