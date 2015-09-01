@@ -1,0 +1,125 @@
+set prompt = '%B[%m:%/]% '
+unset	autologout
+set	visiblebell
+umask	0
+
+alias	++	pushd
+alias	--	popd
+alias	d	dirs
+alias	j	jobs
+alias	l	ls -C --show-control-chars
+alias	la	ls -aF --show-control-chars
+alias	ll	ls -lF --show-control-chars
+alias	ls	ls -F --show-control-chars
+alias	h	history 40
+alias	hh	history
+#alias	find	"find \!* -noleaf"
+alias	hexdump	hexdump -C
+alias	cp-f	"\cp -f"
+alias	cp	'cp -i'
+alias	ec	emacsclient
+alias	lv	lv -c
+alias	les	lv # to use lv instead of less
+alias	grep	'grep -a' # because GREP_OPTIONS is deprecated.
+
+
+#alias	xterm	'xterm -geometry 80x55+0+0 -sl 1000 -sb -rightbar -ms red -fg white -bg black -e tcsh'
+alias	xterm	'xterm +tb'
+alias	settitle	'echo -n "\033]0;\!:1" ; echo -n "\007"'
+alias	cls	echo -e '\\0033\\0143'
+alias	path_sed	'echo $PATH | sed "s/:/\n/g"'
+alias	gpg_check	'gpg --list-only'
+alias	mkdircd	'mkdir -p $1; cd $1'
+alias	json_py	'python -mjson.tool'
+#alias	soap	java org.apache.soap.util.net.TcpTunnelGui 49152 localhost 8080
+#alias	soap	java org.apache.soap.util.net.TcpTunnelGui
+
+alias	rmbak	'rm *~ #*# .*~'
+#alias	te	emacs -nw
+alias	te	/cygdrive/c/files/Hidemaru/Hidemaru.exe
+#alias	tcshrc	'c:/files/hidemaru/hidemaru.exe c:/work/.tcshrc'
+#alias	gte	gnome-text-editor
+#alias	bak	cd -
+#alias	back	cd -
+#alias	set	echo use setenv not set
+alias	psall	'ps -aux | grep kurokawa'
+
+alias	zip	'zip -r'
+alias	zip_pass	'zip -P'
+alias	bz2	'bzip2 -dc $1 | tar xvf -'
+alias	bz2t	'bzip2 -dc $1 | tar tvf -'
+alias	enscript_hs	'enscript --highlight=haskell --color -C -o ~/tmp/out.html --language=html'
+alias	enscript_cpp	'enscript --highlight=cpp --color -C -o ~/tmp/out.html --language=html'
+alias	enscript_elisp	'enscript --highlight=elisp --color -C -o ~/tmp/out.html --language=html'
+alias	enscript_sql	'enscript --highlight=sql --color -C -o ~/tmp/out.html --language=html'
+alias	hasktags-r	'hasktags -e *.hs */*.hs */*/*.hs'
+alias	cabal	env LANG= cabal
+
+
+### svn ###
+alias   lsco    "svn stat \!* | grep -v ^\?"
+alias   lsup    "svn stat -u \!* | grep -v ^\?"
+alias   rmtmpf  "svn stat --no-ignore \!* | grep ^\[\?\|I\] | cut -c 8- | xargs rm "
+alias   rmtmpd  "svn stat --no-ignore \!* | grep ^\[\?\|I\] | cut -c 8- | xargs rm -rf "
+alias   svn     svn --non-interactive
+
+
+#setenv	DISPLAY	localhost:0.0
+setenv	LESS	'--RAW-CONTROL-CHARS'  # -X is not needed because of my terminfo setting.
+setenv	PAGER	'lv -c'
+#setenv	GREP_OPTIONS	'-a'	# Process a binary file as if it were text.
+
+# java env
+alias	javac	c:/java/jdk1.6/bin/javac.exe
+alias	java	c:/java/jdk1.6/bin/java.exe
+
+
+### tcshrc for ssh-agent ===> ###
+setenv SSH_ENV "$HOME/.ssh/environment"
+setenv SSHAGENT `which ssh-agent`
+
+if ( -f "${SSH_ENV}" ) then
+    #echo "env file found: ${SSH_ENV}"
+    source "${SSH_ENV}"
+    #echo "SSH_AGENT_PID: ${SSH_AGENT_PID}"
+    #echo "SSH_AUTH_SOCK: ${SSH_AUTH_SOCK}"
+    #ps ${SSH_AGENT_PID} doesn't work under cywgin
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent > /dev/null
+    if ( $status == 1 ) then
+        #echo "no agent found ${SSH_AGENT_PID}"
+        goto call_start_agent
+    endif
+    #echo "agent found! ${SSH_AGENT_PID}"
+    ssh-add -l | grep "${HOME}/.ssh/id_" > /dev/null
+    if ( $status == 1 ) then
+        #echo "no key added."
+        goto call_ssh_add
+    endif
+else
+    #echo "no environment file."
+    goto call_start_agent
+endif
+goto exit_ssh
+
+# Source SSH settings, if applicable
+call_start_agent:
+    echo -n "Initialising new SSH agent... "
+    ${SSHAGENT} -c | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 700 "${SSH_ENV}"
+    source "${SSH_ENV}"
+    #echo "after start SSH_AGENT_PID: ${SSH_AGENT_PID}"
+    #echo "after start SSH_AUTH_SOCK: ${SSH_AUTH_SOCK}"
+
+	if ( -f ".local.csh" ) then
+		# run only once.
+		echo "load platform local script..."
+		source ".local.csh"
+		echo "load platform local script: DONE"
+	endif
+
+call_ssh_add:
+    ssh-add
+
+exit_ssh:
+### <=== ssh-agent ###
