@@ -1,3 +1,12 @@
+if ( -e "$HOME/.local_terminal.csh" ) then
+	# each terminal loads this script.
+	echo -n "load platform local script (.local_terminal.csh): "
+	source "$HOME/.local_terminal.csh"
+	echo "DONE"
+else
+	echo "file not found: $HOME/.local_terminal.csh"
+endif
+
 set prompt = '%B[%m:%/]% '
 unset	autologout
 set	visiblebell
@@ -111,11 +120,11 @@ call_start_agent:
     #echo "after start SSH_AGENT_PID: ${SSH_AGENT_PID}"
     #echo "after start SSH_AUTH_SOCK: ${SSH_AUTH_SOCK}"
 
-	if ( -f ".local.csh" ) then
+	if ( -e "$HOME/.local_host.csh" ) then
 		# run only once.
-		echo "load platform local script..."
-		source ".local.csh"
-		echo "load platform local script: DONE"
+		echo -n "load platform local script (.local_host.csh): "
+		source "$HOME/.local_host.csh"
+		echo "DONE"
 	endif
 
 call_ssh_add:
