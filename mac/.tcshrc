@@ -1,25 +1,31 @@
-#set prompt = '%B[%m:%/] '
-set prompt = '[%m:%/]% '
-unset	autologout
-set path = (/Users/kurokawa/bin /Users/kurokawa/Library/Haskell/bin /usr/local/bin /opt/local/bin /opt/local/sbin /bin /sbin /usr/bin /usr/sbin /usr/X11/bin)
+if ( -e "$HOME/.local_terminal.csh" ) then
+	# each terminal loads this script.
+	echo -n "load platform local script (.local_terminal.csh): "
+	source "$HOME/.local_terminal.csh"
+	echo "DONE"
+else
+	echo "file not found: $HOME/.local_terminal.csh"
+endif
 
 set nobeep
-#unsetenv	LANG
-#setenv	LANG	C
-#setenv	LANG	ja_JP.eucJP
-setenv	LANG	ja_JP.UTF-8
-## force LANG C
-#alias	man	'env LANG=C man'
-#alias	make	'env LANG=C make'
-#alias	svn	'env LANG=C svn' # error occurs
+set prompt = '%B[%m:%/]% '
+unset	autologout
+set	visiblebell
+#umask	0
 #umask	022
 umask	002
 
-limit coredumpsize 32000
 
 
-alias	ll	ls -lF
-alias	ls	ls -F
+
+alias	++	pushd
+alias	--	popd
+alias	d	dirs
+alias	j	jobs
+alias	l	ls -C $LOCAL_ENV_LS_OPT
+alias	la	ls -aF $LOCAL_ENV_LS_OPT
+alias	ll	ls -lF $LOCAL_ENV_LS_OPT
+alias	ls	ls -F $LOCAL_ENV_LS_OPT
 alias	h	history 40
 alias	hh	history
 #alias	find	"find \!* -noleaf"
@@ -59,7 +65,7 @@ alias	enscript_cpp	'enscript --highlight=cpp --color -C -o ~/tmp/out.html --lang
 alias	enscript_elisp	'enscript --highlight=elisp --color -C -o ~/tmp/out.html --language=html'
 alias	enscript_sql	'enscript --highlight=sql --color -C -o ~/tmp/out.html --language=html'
 alias	hasktags-r	'hasktags -e *.hs */*.hs */*/*.hs'
-#alias	cabal	env LANG= cabal
+alias	cabal	env LANG= cabal
 
 
 ### svn ###
@@ -70,9 +76,6 @@ alias   rmtmpd  'svn stat --no-ignore \!* | grep "^[\?|I]" | cut -c 8- | xargs r
 alias	svn	'svn --non-interactive'
 
 
-### for dev ###
-alias	psall	'ps aux | grep kurokawa'
-alias	tmppup	"mkdir -p tmp/PSP2/UPDATE; cd tmp/PSP2/UPDATE; ln -s ../../../\!:1 PSP2UPDAT.PUP; cd ../../.."
 
 set CLIENT_IP=`echo $SSH_CLIENT | awk '{print $1}'`
 set TMP_IP=`echo $CLIENT_IP | awk -F : '{print $1}'`
@@ -88,7 +91,6 @@ setenv	EDITOR	'emacs -nw'
 setenv	LESS	'--RAW-CONTROL-CHARS'  # -X is not needed because of my terminfo setting.
 setenv	PAGER	'lv -c'
 #setenv	GREP_OPTIONS	'-a'	# Process a binary file as if it were text.
-setenv	LD_LIBRARY_PATH	/home/kurokawa/lib:/usr/local/lib:/lib:/usr/lib
 
 #setenv	JAVA_HOME	$HOME/java/jdk1.3.1_03
 #setenv	CLASSPATH	.:$HOME/java/jar/activation.jar:$HOME/java/jar/soap.jar:$HOME/java/jar/xerces.jar:$HOME/java/jar/mail.jar:/opt/jar/bsf.jar:$HOME/java/jar/js.jar
@@ -105,18 +107,52 @@ setenv DISTCC_HOSTS localhost
 setenv DISTCC distcc
 setenv CCACHE_PREFIX distcc
 
-### cppunit-x
-setenv CPPUNIT_DIR $HOME/tool/cppunit-x-20020331-cell/cppunit
-setenv CPPUNIT_DIR_LINUX $HOME/tool/cppunit-x-20020331/cppunit
+### tcshrc for ssh-agent ===> ###
+setenv SSH_ENV "$HOME/.ssh/environment"
+setenv SSHAGENT `which ssh-agent`
 
+if ( -f "${SSH_ENV}" ) then
+    #echo "env file found: ${SSH_ENV}"
+    source "${SSH_ENV}"
+    #echo "SSH_AGENT_PID: ${SSH_AGENT_PID}"
+    #echo "SSH_AUTH_SOCK: ${SSH_AUTH_SOCK}"
+    #ps ${SSH_AGENT_PID} doesn't work under cywgin
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent > /dev/null
+    if ( $status == 1 ) then
+        #echo "no agent found ${SSH_AGENT_PID}"
+        goto call_start_agent
+    endif
+    #echo "agent found! ${SSH_AGENT_PID}"
+    ssh-add -l | grep "${HOME}/.ssh/id_" > /dev/null
+    if ( $status == 1 ) then
+        #echo "no key added."
+        goto call_ssh_add
+    endif
+else
+    #echo "no environment file."
+    goto call_start_agent
+endif
+goto exit_ssh
 
-### for mac ###
-#alias emacs /Applications/Emacs.app/Contents/MacOS/Emacs
-alias emacs /Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs
-alias hsdoc /Library/Haskell/doc/index.html
-alias diffmerge /Applications/DiffMerge.app/Contents/MacOS/DiffMerge
-alias threadscope ~/Applications/threadscope.app/Contents/MacOS/threadscope
-alias wireshark /Applications/Wireshark.app/Contents/MacOS/Wireshark
+# Source SSH settings, if applicable
+call_start_agent:
+    echo -n "Initialising new SSH agent... "
+    ${SSHAGENT} -c | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 700 "${SSH_ENV}"
+    source "${SSH_ENV}"
+    #echo "after start SSH_AGENT_PID: ${SSH_AGENT_PID}"
+    #echo "after start SSH_AUTH_SOCK: ${SSH_AUTH_SOCK}"
 
+	if ( -e "$HOME/.local_host.csh" ) then
+		# run only once.
+		echo -n "load platform local script (.local_host.csh): "
+		source "$HOME/.local_host.csh"
+		echo "DONE"
+	endif
 
-source ~/.tcshrc_complete
+call_ssh_add:
+    ssh-add
+
+exit_ssh:
+### <=== ssh-agent ###
