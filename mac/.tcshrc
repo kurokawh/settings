@@ -37,8 +37,8 @@ alias	lv	lv -c
 alias	les	lv # to use lv instead of less
 alias	grep	'grep -a' # because GREP_OPTIONS is deprecated.
 
-alias	rxvt	rxvt -foreground white -background black
-alias	xterm	xterm -foreground white -background black
+#alias	rxvt	rxvt -foreground white -background black
+#alias	xterm	xterm -foreground white -background black
 alias	settitle	'echo -n "\033]0;\!:1" ; echo -n "\007"'
 alias	cls	echo -e '\0033\0143'
 alias	path_sed	'echo $PATH | sed "s/:/\n/g"'
