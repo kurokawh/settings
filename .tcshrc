@@ -1,3 +1,12 @@
+if ( -e "$HOME/.local_terminal.csh" ) then
+	# each terminal loads this script.
+	echo -n "load platform local script (.local_terminal.csh): "
+	source "$HOME/.local_terminal.csh"
+	echo "DONE"
+else
+	echo "file not found: $HOME/.local_terminal.csh"
+endif
+
 set prompt = '%B[%m:%/]% '
 unset	autologout
 set	visiblebell
@@ -38,7 +47,6 @@ alias	rmbak	'rm *~ #*# .*~'
 #alias	te	emacs -nw
 alias	te	/cygdrive/c/files/Hidemaru/Hidemaru.exe
 #alias	tcshrc	'c:/files/hidemaru/hidemaru.exe c:/work/.tcshrc'
-alias	dcatt	/home/kurokawa/mydocs/doc/DLNA_DTCPIP/SONY_portal/DCATT092/DCATT.exe
 #alias	gte	gnome-text-editor
 #alias	bak	cd -
 #alias	back	cd -
@@ -65,44 +73,10 @@ alias   rmtmpd  "svn stat --no-ignore \!* | grep ^\[\?\|I\] | cut -c 8- | xargs 
 alias   svn     svn --non-interactive
 
 
-
-### psp2 dev ###
-alias   p2c        'psp2ctrl'
-alias   p2r        'psp2run'
-alias   psp2reconnect   'psp2ctrl delete "*"; psp2ctrl pop; psp2ctrl conn; psp2ctrl info'
-alias   psp2info        'psp2ctrl info'
-alias   psp2conn        'psp2ctrl conn'
-alias   psp2pop         'psp2ctrl pop'
-alias   psp2on          'psp2ctrl on'
-alias   psp2off         'psp2ctrl off'
-alias   psp2reboot      'psp2ctrl reboot'
-alias   psp2update      'psp2ctrl update'
-alias   distcp  'tar -c --exclude=".svn" conf sdk dist | ( cd /mnt/j/sys/vsh-dist-sdk ; tar -x )'
-alias   cpsvn   '( cd \!:1 ; find . -name ".svn" | tar -T - -c) | tar -x'
-
-
-### orbis dev ###
-alias	oc	orbis-ctrl
-alias	or	orbis-run
-
-
-
 #setenv	DISPLAY	localhost:0.0
 setenv	LESS	'--RAW-CONTROL-CHARS'  # -X is not needed because of my terminfo setting.
 setenv	PAGER	'lv -c'
 #setenv	GREP_OPTIONS	'-a'	# Process a binary file as if it were text.
-
-#setenv	MINT	43.2.152.180
-setenv	SAKURA	43.2.152.180
-setenv	SAKURA_VM	43.2.152.41
-setenv	DEVKIT	43.2.152.117
-setenv	DEVKIT_LAN	43.2.152.102 # not using yet.
-setenv	UBUNTU	43.2.152.76 # not using this addr now.
-
-
-#setenv http_proxy http://proxy.hq.scei.sony.co.jp:8080
-#setenv https_proxy http://proxy.hq.scei.sony.co.jp:8080
-#setenv ftp_proxy http://proxy.hq.scei.sony.co.jp:8080
 
 # java env
 alias	javac	c:/java/jdk1.6/bin/javac.exe
@@ -145,6 +119,13 @@ call_start_agent:
     source "${SSH_ENV}"
     #echo "after start SSH_AGENT_PID: ${SSH_AGENT_PID}"
     #echo "after start SSH_AUTH_SOCK: ${SSH_AUTH_SOCK}"
+
+	if ( -e "$HOME/.local_host.csh" ) then
+		# run only once.
+		echo -n "load platform local script (.local_host.csh): "
+		source "$HOME/.local_host.csh"
+		echo "DONE"
+	endif
 
 call_ssh_add:
     ssh-add
