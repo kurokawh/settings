@@ -99,7 +99,7 @@ if ( -f "${SSH_ENV}" ) then
         goto call_start_agent
     endif
     #echo "agent found! ${SSH_AGENT_PID}"
-    ssh-add -l | grep "${HOME}/.ssh/id_" > /dev/null
+    ssh-add -l | grep -i "${HOME}/.ssh/id_" > /dev/null
     if ( $status == 1 ) then
         #echo "no key added."
         goto call_ssh_add
