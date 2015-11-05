@@ -88,7 +88,7 @@
 
 
 ;;;; global ;;;;
-(global-set-key "\C-J" (quote goto-line))
+;(global-set-key "\C-J" (quote goto-line))
 (global-set-key "\362" (quote replace-string))
 (global-set-key "" (quote revert-buffer))
 (global-set-key "\C-h" (quote delete-backward-char))
@@ -120,8 +120,14 @@
 
 ;;; package.el ;;;
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+;; MELPAを追加
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;; MELPA-stableを追加
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;; Marmaladeを追加
+(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;; Orgを追加
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
 ;;; auto-complete ;;;
@@ -195,3 +201,30 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+;;; gtags ;;;
+(require 'gtags)
+(add-hook 'java-mode-hook (lambda () (gtags-mode 1)))
+(add-hook 'c-mode-hook (lambda () (gtags-mode 1)))
+(add-hook 'c++-mode-hook (lambda () (gtags-mode 1)))
+(setq gtags-mode-hook
+      '(lambda ()
+;         (local-set-key "\M-." 'gtags-find-tag)
+;         (local-set-key "\M-." 'gtags-find-tag-from-here)
+;         (local-set-key "\M-," 'gtags-find-rtag)
+;         (local-set-key "\M-]" 'gtags-find-symbol)
+;         (local-set-key "\M-[" 'gtags-find-file)
+         (local-set-key "\C-j\C-t" 'gtags-find-tag)
+         (local-set-key "\C-j\C-h" 'gtags-find-tag-from-here)
+         (local-set-key "\C-j\C-p" 'gtags-find-pattern)
+         (local-set-key "\C-j\C-r" 'gtags-find-rtag)
+         (local-set-key "\C-j\C-s" 'gtags-find-symbol)
+         (local-set-key "\C-j\C-f" 'gtags-find-file)
+         (local-set-key "\C-j\C-l" 'gtags-parse-file)
+         (local-set-key "\C-j\C-j" 'gtags-pop-stack)
+         ))
+(setq gtags-select-mode-hook
+      '(lambda ()
+	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
+	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
+	 ))
