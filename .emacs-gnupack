@@ -23,12 +23,23 @@
 ;;; @ site-lisp                                                     ;;;
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
 
-(let ( (default-directory
-         (file-name-as-directory (concat user-emacs-directory "site-lisp")))
-       )
-  (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path)
-  )
+;; (let ( (default-directory
+;;          (file-name-as-directory (concat user-emacs-directory "site-lisp")))
+;;        )
+;;   (add-to-list 'load-path default-directory)
+;;   (normal-top-level-add-subdirs-to-load-path)
+;;   )
+;;; package.el ;;;
+(require 'package)
+;; MELPAを追加
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;; MELPA-stableを追加
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;; Marmaladeを追加
+(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;; Orgを追加
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(package-initialize)
 
 
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
@@ -73,7 +84,7 @@
 (setq w32-ime-mode-line-state-indicator-list '("[Aa]" "[あ]" "[Aa]"))
 
 ;; IME初期化
-(w32-ime-initialize)
+;(w32-ime-initialize)
 
 ;; デフォルトIME
 (setq default-input-method "W32-IME")
@@ -92,19 +103,19 @@
 
 ;; デフォルト フォント
 ;; (set-face-attribute 'default nil :family "Migu 1M" :height 110)
-(set-face-font 'default "Migu 1M-11:antialias=standard")
+;(set-face-font 'default "Migu 1M-11:antialias=standard")
 
 ;; プロポーショナル フォント
 ;; (set-face-attribute 'variable-pitch nil :family "Migu 1M" :height 110)
-(set-face-font 'variable-pitch "Migu 1M-11:antialias=standard")
+;(set-face-font 'variable-pitch "Migu 1M-11:antialias=standard")
 
 ;; 等幅フォント
 ;; (set-face-attribute 'fixed-pitch nil :family "Migu 1M" :height 110)
-(set-face-font 'fixed-pitch "Migu 1M-11:antialias=standard")
+;(set-face-font 'fixed-pitch "Migu 1M-11:antialias=standard")
 
 ;; ツールチップ表示フォント
 ;; (set-face-attribute 'tooltip nil :family "Migu 1M" :height 90)
-(set-face-font 'tooltip "Migu 1M-9:antialias=standard")
+;(set-face-font 'tooltip "Migu 1M-9:antialias=standard")
 
 ;;; fontset
 
@@ -231,9 +242,9 @@
 (add-hook 'minibuffer-setup-hook
           (lambda ()
             (deactivate-input-method)))
-(wrap-function-to-control-ime 'y-or-n-p nil nil)
-(wrap-function-to-control-ime 'map-y-or-n-p nil nil)
-(wrap-function-to-control-ime 'read-char nil nil)
+;(wrap-function-to-control-ime 'y-or-n-p nil nil)
+;(wrap-function-to-control-ime 'map-y-or-n-p nil nil)
+;(wrap-function-to-control-ime 'read-char nil nil)
 
 
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
@@ -317,34 +328,34 @@
 ;;; @ screen - tabbar                                               ;;;
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
 
-(require 'tabbar)
+;; (require 'tabbar)
 
-;; tabbar有効化（有効：t、無効：nil）
-(call-interactively 'tabbar-mode t)
+;; ;; tabbar有効化（有効：t、無効：nil）
+;; (call-interactively 'tabbar-mode t)
 
-;; ボタン非表示
-(dolist (btn '(tabbar-buffer-home-button
-               tabbar-scroll-left-button
-               tabbar-scroll-right-button))
-  (set btn (cons (cons "" nil) (cons "" nil)))
-  )
+;; ;; ボタン非表示
+;; (dolist (btn '(tabbar-buffer-home-button
+;;                tabbar-scroll-left-button
+;;                tabbar-scroll-right-button))
+;;   (set btn (cons (cons "" nil) (cons "" nil)))
+;;   )
 
-;; タブ切替にマウスホイールを使用（有効：0、無効：-1）
-(call-interactively 'tabbar-mwheel-mode -1)
-(remove-hook 'tabbar-mode-hook      'tabbar-mwheel-follow)
-(remove-hook 'mouse-wheel-mode-hook 'tabbar-mwheel-follow)
+;; ;; タブ切替にマウスホイールを使用（有効：0、無効：-1）
+;; (call-interactively 'tabbar-mwheel-mode -1)
+;; (remove-hook 'tabbar-mode-hook      'tabbar-mwheel-follow)
+;; (remove-hook 'mouse-wheel-mode-hook 'tabbar-mwheel-follow)
 
-;; タブグループを使用（有効：t、無効：nil）
-(defvar tabbar-buffer-groups-function nil)
-(setq tabbar-buffer-groups-function nil)
+;; ;; タブグループを使用（有効：t、無効：nil）
+;; (defvar tabbar-buffer-groups-function nil)
+;; (setq tabbar-buffer-groups-function nil)
 
-;; タブの表示間隔
-(defvar tabbar-separator nil)
-(setq tabbar-separator '(1.0))
+;; ;; タブの表示間隔
+;; (defvar tabbar-separator nil)
+;; (setq tabbar-separator '(1.0))
 
-;; タブ切り替え
-(global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)
-(global-set-key (kbd "C-q")     'tabbar-backward-tab)
+;; ;; タブ切り替え
+;; (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)
+;; (global-set-key (kbd "C-q")     'tabbar-backward-tab)
 
 
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
@@ -392,10 +403,10 @@
 ;;; @ screen - hiwin                                                ;;;
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
 
-(require 'hiwin)
+;(require 'hiwin)
 
 ;; hiwin-modeを有効化
-(hiwin-activate)
+;(hiwin-activate)
 
 
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
@@ -568,7 +579,7 @@
 ;; テーマ選択
 ;; (load-theme 'solarized-light t)
 ;; (load-theme 'solarized-dark t)
-(load-theme 'gnupack-dark t)
+;(load-theme 'gnupack-dark t)
 
 
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
