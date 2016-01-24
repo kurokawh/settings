@@ -130,21 +130,48 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
-;;; auto-complete ;;;
-;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;(require 'auto-complete-config)
-;(ac-config-default)
-;(define-key ac-mode-map (kbd “M-TAB”) ‘auto-complete)
-;(global-set-key "\257" (quote auto-complete)) ; "M-/"
-;(global-set-key "\351" (quote auto-complete)) ; "M-i"
-;(global-set-key "	" (quote auto-complete)) ; "TAB"
-;(ac-set-trigger-key "	") ; "TAB"
-
 ;;; auto-install.el ;;;
 (require 'auto-install)
 (auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
 ;(auto-install-compatibility-setup)
 (add-to-list 'load-path "~/.emacs.d/auto-install")
+
+;;; emacs-zissen ===>
+;; auto-complete
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories
+	       "~/.emacs.d/elisp/ac-dict")
+  (setq ac-auto-show-menu nil) ; disable auto show menu
+;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
+  (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
+  (ac-config-default))
+
+;; setting of color_moccur
+(when (require 'color-moccur nil t)
+  ;; assign occur-by-moccur to M-o.
+  (define-key global-map (kbd "M-o") 'occur-by-moccur)
+  ;; AND search with space
+  ;(setq moccur-split-word t)
+  ;; ignore in directory search
+  (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
+  (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
+  ;; use Migemo if it is available.
+  (when (and (executable-find "cmigemo")
+	     (require 'migemo nil t))
+    (setq moccur-use-migemo t))
+  ;; load moccur-edit as well.
+  (require 'moccur-edit nil t))
+
+;; settings of wgrep
+(require 'wgrep nil t)
+
+;; setting of undo-tree
+;; C-x u shows undo tree.
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
+
+;;; <=== emacs zissen
+
 
 ;;; anything.el ;;;
 ;(require 'anything-startup)
@@ -156,7 +183,7 @@
 (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
 (add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
 (add-to-list 'auto-mode-alist '("\\.cabal\\'" . haskell-cabal-mode))
-;(add-hook 'haskell-mode-hook (lambda () (turn-on-haskell-indent)))
+(add-hook 'haskell-mode-hook (lambda () (turn-on-haskell-indent)))
 ;; ghc-mod
 ;; cabal でインストールしたライブラリのコマンドが格納されている bin ディレクトリへのパスを exec-path に追加する
 ;(add-to-list 'exec-path (concat (getenv "HOME") "/.cabal/bin"))
@@ -212,7 +239,7 @@
 
 ;;; for emacsclient ;;;
 (require 'server)
-(defun server-ensure-safe-dir (dir) "Noop" t)
+(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
 (unless (server-running-p)
   (server-start))
 
@@ -239,6 +266,6 @@
          ))
 (setq gtags-select-mode-hook
       '(lambda ()
-         (local-set-key "\C-j\C-j" 'gtags-pop-stack)
+	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
 	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
-         ))
+	 ))
