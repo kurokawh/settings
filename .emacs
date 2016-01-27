@@ -240,6 +240,7 @@
 ;;; for emacsclient ;;;
 (require 'server)
 (defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
+(setq server-socket-dir "~/.emacs.d")
 (unless (server-running-p)
   (server-start))
 
