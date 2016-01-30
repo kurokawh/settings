@@ -130,21 +130,48 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
-;;; auto-complete ;;;
-;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;(require 'auto-complete-config)
-;(ac-config-default)
-;(define-key ac-mode-map (kbd “M-TAB”) ‘auto-complete)
-;(global-set-key "\257" (quote auto-complete)) ; "M-/"
-;(global-set-key "\351" (quote auto-complete)) ; "M-i"
-;(global-set-key "	" (quote auto-complete)) ; "TAB"
-;(ac-set-trigger-key "	") ; "TAB"
-
 ;;; auto-install.el ;;;
 (require 'auto-install)
 (auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
 ;(auto-install-compatibility-setup)
 (add-to-list 'load-path "~/.emacs.d/auto-install")
+
+;;; emacs-zissen ===>
+;; auto-complete
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories
+	       "~/.emacs.d/elisp/ac-dict")
+  (setq ac-auto-show-menu nil) ; disable auto show menu
+;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
+  (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
+  (ac-config-default))
+
+;; setting of color_moccur
+(when (require 'color-moccur nil t)
+  ;; assign occur-by-moccur to M-o.
+  (define-key global-map (kbd "M-o") 'occur-by-moccur)
+  ;; AND search with space
+  ;(setq moccur-split-word t)
+  ;; ignore in directory search
+  (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
+  (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
+  ;; use Migemo if it is available.
+  (when (and (executable-find "cmigemo")
+	     (require 'migemo nil t))
+    (setq moccur-use-migemo t))
+  ;; load moccur-edit as well.
+  (require 'moccur-edit nil t))
+
+;; settings of wgrep
+(require 'wgrep nil t)
+
+;; setting of undo-tree
+;; C-x u shows undo tree.
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
+
+;;; <=== emacs zissen
+
 
 ;;; anything.el ;;;
 ;(require 'anything-startup)
@@ -162,14 +189,15 @@
 ;(add-to-list 'exec-path (concat (getenv "HOME") "/.cabal/bin"))
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
-(add-to-list 'load-path "~/Library/Haskell/ghc-7.6.3/lib/ghc-mod-3.1.7/share") 
-(add-to-list 'load-path "~/Library/Haskell/ghc-7.6.3/lib/hlint-1.8.59/share")
+;(add-to-list 'load-path "~/Library/Haskell/ghc-7.6.3/lib/ghc-mod-3.1.7/share") 
+;(add-to-list 'load-path "~/Library/Haskell/ghc-7.6.3/lib/hlint-1.8.59/share")
+(add-to-list 'load-path "~/.stack/global-project/.stack-work/install/x86_64-osx/lts-3.10/7.10.2/share/x86_64-osx-ghc-7.10.2/ghc-mod-5.4.0.0/elisp") 
+(add-to-list 'load-path "~/.stack/snapshots/x86_64-osx/lts-3.10/7.10.2/share/x86_64-osx-ghc-7.10.2/hlint-1.9.21")
 (autoload 'ghc-init "ghc" nil t)
 ;(autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
 
 (require 'flycheck)
 (require 'flycheck-haskell)
-;(require 'flycheck-hdevtools)
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
 (add-hook 'haskell-mode-hook
@@ -211,6 +239,8 @@
 
 ;;; for emacsclient ;;;
 (require 'server)
+(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
+(setq server-socket-dir "~/.emacs.d")
 (unless (server-running-p)
   (server-start))
 
@@ -237,6 +267,6 @@
          ))
 (setq gtags-select-mode-hook
       '(lambda ()
-         (local-set-key "\C-j\C-j" 'gtags-pop-stack)
+	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
 	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
-         ))
+	 ))

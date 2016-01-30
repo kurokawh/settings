@@ -1,4 +1,4 @@
-set path = (~/.local/bin ~/bin ~/Library/Haskell/bin /usr/local/bin /opt/local/bin /opt/local/sbin /bin /sbin /usr/bin /usr/sbin /usr/X11/bin)
+set path = (~/bin ~/.local/bin ~/Library/Haskell/bin /usr/local/bin /opt/local/bin /opt/local/sbin /bin /sbin /usr/bin /usr/sbin /usr/X11/bin)
 setenv	LD_LIBRARY_PATH	/home/kurokawa/lib:/usr/local/lib:/lib:/usr/lib
 
 #unsetenv	LANG
