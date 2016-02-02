@@ -15,7 +15,8 @@
 
 
 ;; Are we running XEmacs or Emacs?
-;(defvar running-xemacs (string-match "XEmacs\\|Lucid" emacs-version))
+;; emacs on mac requires this defvar.
+(defvar running-xemacs (string-match "XEmacs\\|Lucid" emacs-version))
 
 ;; Set up the keyboard so the delete key on both the regular keyboard
 ;; and the keypad delete the character under the cursor and to the right
