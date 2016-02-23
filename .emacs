@@ -207,8 +207,7 @@
 ;             (setq flycheck-disabled-checkers '(haskell-ghc))
 ;             (setq flycheck-disabled-checkers '(haskell-hlint))
 	     (flycheck-mode 1)
-	     (turn-on-haskell-indent)
-	     ))
+	     (turn-on-haskell-indent)))
 
 
 
