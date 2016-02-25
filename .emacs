@@ -125,7 +125,7 @@
 ;; MELPA-stableを追加
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 ;; Marmaladeを追加
-(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
 ;; Orgを追加
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
@@ -209,7 +209,10 @@
 	     (flycheck-mode 1)
 	     (turn-on-haskell-indent)))
 
-
+;
+; following settings are removed because auto-install-batch anything failes
+; http://d.hatena.ne.jp/kitokitoki/20111217/p1
+; 
 
 ; enable major mode for every setting files.
 ;   http://rubikitch.com/2014/08/03/

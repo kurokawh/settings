@@ -189,10 +189,14 @@
 ;(add-to-list 'exec-path (concat (getenv "HOME") "/.cabal/bin"))
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
-(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.8.3/ghc-mod-5.2.1.2/") 
+(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.10.2/ghc-mod-5.5.0.0/elisp/")
+(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.10.2/hlint-1.9.27/")
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(add-hook 'haskell-mode-hook
+	  '(lambda ()
+	     (ghc-init)
+	     ))
 
 ;
 ; following settings are removed because auto-install-batch anything failes
@@ -227,6 +231,7 @@
 ;;; for emacsclient ;;;
 (require 'server)
 (defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
+(setq server-socket-dir "~/.emacs.d")
 (unless (server-running-p)
   (server-start))
 
