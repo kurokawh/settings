@@ -1,6 +1,21 @@
 ;; Red Hat Linux default .emacs initialization file
 
+
+;;; package.el ;;;
+(require 'package)
+;; MELPAを追加
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;; MELPA-stableを追加
+;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;; Marmaladeを追加
+;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;; Orgを追加
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(package-initialize)
+
+
 ;; Are we running XEmacs or Emacs?
+;; emacs on mac requires this defvar.
 (defvar running-xemacs (string-match "XEmacs\\|Lucid" emacs-version))
 
 ;; Set up the keyboard so the delete key on both the regular keyboard
@@ -118,18 +133,6 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil) ; そのままだと C-x が切り取りになってしまったりするので無効化
 
-;;; package.el ;;;
-(require 'package)
-;; MELPAを追加
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-;; MELPA-stableを追加
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-;; Marmaladeを追加
-;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
-;; Orgを追加
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-(package-initialize)
-
 ;;; auto-install.el ;;;
 (require 'auto-install)
 (auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
@@ -196,6 +199,7 @@
 (add-hook 'haskell-mode-hook
 	  '(lambda ()
 	     (ghc-init)
+	     (turn-on-haskell-indent)
 	     ))
 
 ;
