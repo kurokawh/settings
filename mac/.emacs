@@ -192,8 +192,6 @@
 ;(add-to-list 'exec-path (concat (getenv "HOME") "/.cabal/bin"))
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
-;(add-to-list 'load-path "~/Library/Haskell/ghc-7.6.3/lib/ghc-mod-3.1.7/share") 
-;(add-to-list 'load-path "~/Library/Haskell/ghc-7.6.3/lib/hlint-1.8.59/share")
 (add-to-list 'load-path "~/.stack/global-project/.stack-work/install/x86_64-osx/lts-3.10/7.10.2/share/x86_64-osx-ghc-7.10.2/ghc-mod-5.4.0.0/elisp") 
 (add-to-list 'load-path "~/.stack/snapshots/x86_64-osx/lts-3.10/7.10.2/share/x86_64-osx-ghc-7.10.2/hlint-1.9.21")
 (autoload 'ghc-init "ghc" nil t)
@@ -211,9 +209,13 @@
 ;             (setq flycheck-disabled-checkers '(haskell-ghc))
              (setq flycheck-disabled-checkers '(haskell-hlint))
 	     (flycheck-mode 1)
-	     (turn-on-haskell-indent)))
+	     (turn-on-haskell-indent)
+	     ))
 
-
+;
+; following settings are removed because auto-install-batch anything failes
+; http://d.hatena.ne.jp/kitokitoki/20111217/p1
+; 
 
 ; enable major mode for every setting files.
 ;   http://rubikitch.com/2014/08/03/
