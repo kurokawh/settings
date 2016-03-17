@@ -275,3 +275,11 @@
 	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
 	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
 	 ))
+
+;;; http://d.hatena.ne.jp/primunu/20080630/1214839418
+;;; http://kurohuku.blogspot.jp/2009/10/emacstime-stamp-mic-paren.html
+(require 'mic-paren)
+(paren-activate)
+;(setq paren-match-face '(underline paren-face))
+(setq paren-match-face 'bold paren-sexp-mode t)
+(setq paren-sexp-mode t)
