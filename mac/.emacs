@@ -46,8 +46,9 @@
 (menu-bar-mode nil) ; disable menu bar
 (tool-bar-mode nil) ; disable tool bar
 
-; swap C-h
-;(load "term/keyswap")
+; hilight matching parensis.
+; https://www.emacswiki.org/emacs/ShowParenMode
+(show-paren-mode (quote toggle))
 
 
 (add-hook 'c-mode-common-hook
