@@ -4,7 +4,7 @@
 unsetenv TEMP
 unsetenv TMP
 
-set path=( /usr/local/bin /usr/bin /bin $path:q )
+#set path=( /usr/local/bin /usr/bin /bin $path:q )
 
 if ( ! ${?USER} ) then
   set user="`id -un`"

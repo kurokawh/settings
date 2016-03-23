@@ -970,7 +970,7 @@ n@public@'`[ -r /usr/man/manp ]&& \ls -1 /usr/man/manp | sed s%\\.p.\*\$%%`'@ \
 			c/-/"(b f i S u V v -)"/ \
 			n/{-S,--suffix}/x:'<suffix>'/ \
 			n/{-V,--version-control}/"(t numbered nil existing \
-			never simple)"/ n/-/f/ N/-/d/ p/1/f/ p/2/d/ n/*/f/
+			never simple)"/ n/-/f/ N/-/d/ p/1/f/ n/*/f/
     complete cp		c/--/"(archive backup no-dereference force \
     			interactive link preserve parents sparse recursive \
 			symbolic-link suffix update verbose version-control \
@@ -978,7 +978,7 @@ n@public@'`[ -r /usr/man/manp ]&& \ls -1 /usr/man/manp | sed s%\\.p.\*\$%%`'@ \
 			c/-/"(a b d f i l P p R r S s u V v x -)"/ \
 			n/-*r/d/ n/{-S,--suffix}/x:'<suffix>'/ \
 			n/{-V,--version-control}/"(t numbered nil existing \
-			never simple)"/ n/-/f/ N/-/d/ p/1/f/ p/2/d/ n/*/f/
+			never simple)"/ n/-/f/ N/-/d/ p/1/f/ n/*/f/
     complete ln		c/--/"(backup directory force no-dereference \
     			interactive symbolic suffix verbose version-control \
 			help version)"/ \
@@ -1222,6 +1222,68 @@ n@public@'`[ -r /usr/man/manp ]&& \ls -1 /usr/man/manp | sed s%\\.p.\*\$%%`'@ \
     unset noglob
     unset _complete
     unset traditional_complete
+    
+    complete git  'n@help@(add bisect branch checkoutclone \
+		commit diff fetch grep init log merge mv \
+		pull push rebase reset rm show status tag)@' \
+		'p@1@(add bisect branch checkoutclone \
+		commit diff fetch grep init log merge mv \
+		pull push rebase reset rm show status tag)@'
+
+    complete ghc  c/-v/"(0 1 2 3 4 5)"/ \
+		c/-i/d/ \
+		c/--/"(interactive make mk-dll help show-iface \
+		supported-extensions supported-languages \
+		info version numeric-version print-libdir)"/ \
+		c/-W/"(all error warn)"/ \
+		c/-{fwarn-,fno-warn-}/"(unrecognised-pragmas \
+		warnings-deprecations deprecated-flags \
+		unsupported-calling-conventions \
+		dodgy-foreign-imports dodgy-exports \
+		dodgy-imports lazy-unlifted-bindings \
+		duplicate-exports hi-shadowing \
+		identities implicit-prelude \
+		incomplete-patterns incomplete-uni-patterns \
+		missing-fields missing-import-lists \
+		missing-methods missing-signatures \
+		missing-local-sigs name-shadowing \
+		orphans auto-orphans overlapping-patterns \
+		tabs type-defaults monomorphism-restriction \
+		unused-binds unused-imports unused-matches \
+		unused-do-bind wrong-do-bind )"/ \
+		c/-f/"(defer-type-errors helpful-errors \
+		force-recomp warn- no-warn-)"/ \
+		c/-/"(E C S c fglasgow-exts O prof H14m M e V w\
+		ferror-spans ghc-timing fforce-recomp ?)"/ \
+		n/-{odir,hidir,stubdir,dumpdir,outputdir,tmpdir}/d/ \
+		'n/--make/f:*.hs/' \
+		'n/*/f:*.hs/'
+
+    complete ghci c/-i/d/ \
+		c/-/"(fglasgow-exts H32m cpp i)"/
+
+    complete cabal c/--{config-file,sndbox-config-file}=/f/ \
+		c/--/"(help version numeric-version config-file= \
+                sandbox-config-file=)"/ \
+		p/1/"(install update list info fetch get check \
+		sdist upload report run init configure build \
+		repl sandbox copy haddock clean hscolour \
+		register test bench help)"/
+
+    complete oc p/1/"(activate add connect console coredump \
+		ctrlptojson default delete device-info disconnect \
+		discover downloadreq extract-userdata extract-userfile \
+		find force-disconnect fscase fsroot get-app-list \
+		heapdump help info interactive ipconfig jsontoctrlp \
+		kill-app list list-userfile map name netstat off \
+		on pcap pconsole pdump pg-dump pg-next-chunk pg-restore \
+		pkg-install pkg-list pkg-uninstall pkill playback plist \
+		pobjects presume psockets psuspend pthreads reboot \
+		record rest-mode resume-app savedata-export \
+		savedata-import savedata-list screenshot setmac \
+		set-subnet-mask settings-export settings-import \
+		show-psn-state spawn-app suspend-app unmap update)"/
+
 endif
 
 end:
