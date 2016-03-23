@@ -986,7 +986,7 @@ n@public@'`[ -r /usr/man/manp ]&& \ls -1 /usr/man/manp | sed s%\\.p.\*\$%%`'@ \
 			n/{-S,--suffix}/x:'<suffix>'/ \
 			n/{-V,--version-control}/"(t numbered nil existing \
 			never simple)"/ n/-/f/ N/-/x:'<link_name>'/ \
-			p/1/f/ p/2/x:'<link_name>'/
+			p/1/f/ p/2/d/
     complete touch	c/--/"(date reference time help version)"/ \
 			c/-/"(a c d f m r t -)"/ \
 			n/{-d,--date}/x:'<date_string>'/ \
