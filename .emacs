@@ -48,6 +48,7 @@
 
 ; hilight matching parensis.
 ; https://www.emacswiki.org/emacs/ShowParenMode
+;(setq show-paren-delay 0.5)
 (show-paren-mode (quote toggle))
 
 
