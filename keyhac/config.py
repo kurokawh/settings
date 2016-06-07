@@ -293,6 +293,10 @@ def configure(keymap):
             keymap.command_InputKey("C-z")()
             keymap_emacs.is_mark = False
 
+        def redo():
+            keymap.command_InputKey("C-y")()
+            keymap_emacs.is_mark = False
+
         def set_mark_command():
             if keymap_emacs.is_mark:
                 keymap_emacs.is_mark = False
@@ -529,6 +533,7 @@ def configure(keymap):
 
         keymap_emacs["C-Space"]         = reset(set_mark_command)
         keymap_emacs["C-Slash"]         = reset(undo)
+        keymap_emacs["C-S-Slash"]       = reset(redo)
         keymap_emacs["C-Atmark"]        = reset(set_mark_command)
         keymap_emacs["C-Underscore"]    = reset(undo)
         keymap_emacs["C-a"]             = reset(mark(move_beginning_of_line))
@@ -548,6 +553,7 @@ def configure(keymap):
         keymap_emacs["C-w"]             = reset(kill_region)
         keymap_emacs["C-y"]             = reset(yank)
         keymap_emacs["C-z"]             = reset(undo)
+        keymap_emacs["C-S-z"]           = reset(redo)
 
         keymap_emacs["A-S-Comma"]       = reset(mark(beginning_of_buffer))
         keymap_emacs["A-S-Period"]      = reset(mark(end_of_buffer))
