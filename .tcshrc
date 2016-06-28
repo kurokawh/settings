@@ -39,7 +39,8 @@ alias	cls	echo -e '\\0033\\0143'
 alias	path_sed	'echo $PATH | sed "s/:/\n/g"'
 alias	gpg_check	'gpg --list-only'
 alias	mkdircd	'mkdir -p $1; cd $1'
-alias	json_py	'python -mjson.tool'
+alias	fmt_json	'python -mjson.tool'
+alias	fmt_xml	'xmllint --format'
 #alias	soap	java org.apache.soap.util.net.TcpTunnelGui 49152 localhost 8080
 #alias	soap	java org.apache.soap.util.net.TcpTunnelGui
 
@@ -63,6 +64,7 @@ alias	enscript_elisp	'enscript --highlight=elisp --color -C -o ~/tmp/out.html --
 alias	enscript_sql	'enscript --highlight=sql --color -C -o ~/tmp/out.html --language=html'
 alias	hasktags-r	'hasktags -e *.hs */*.hs */*/*.hs'
 alias	cabal	env LANG= cabal
+alias	stack	env LANG= stack
 
 
 ### svn ###
@@ -99,7 +101,7 @@ if ( -f "${SSH_ENV}" ) then
         goto call_start_agent
     endif
     #echo "agent found! ${SSH_AGENT_PID}"
-    ssh-add -l | grep "${HOME}/.ssh/id_" > /dev/null
+    ssh-add -l | grep -i "${HOME}/.ssh/id_" > /dev/null
     if ( $status == 1 ) then
         #echo "no key added."
         goto call_ssh_add
