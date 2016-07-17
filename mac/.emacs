@@ -48,6 +48,7 @@
 
 ; hilight matching parensis.
 ; https://www.emacswiki.org/emacs/ShowParenMode
+;(setq show-paren-delay 0.5)
 (show-paren-mode (quote toggle))
 
 
@@ -110,6 +111,9 @@
 (global-set-key "\C-h" (quote delete-backward-char))
 (global-set-key (kbd "M-%") 'vr/query-replace)
 (global-set-key [zenkaku-hankaku] (quote toggle-input-method))
+(global-set-key [C-prior] (quote switch-to-prev-buffer))
+(global-set-key [C-next] (quote switch-to-next-buffer))
+
 
 (setq default-major-mode 'text-mode)
 (custom-set-variables
