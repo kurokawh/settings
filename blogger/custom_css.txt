@@ -7,6 +7,9 @@
     padding: 0px; 
     text-align: left;
     font-family: "Courier New", Courier, monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
 }
 
 .log
@@ -18,6 +21,9 @@
     padding: 0px; 
     text-align: left;
     font-family: "Courier New", Courier, monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
 }
 
 .mobile .code
@@ -29,4 +35,5 @@
     padding: 0px; 
     text-align: left;
     font-family: "Courier New", Courier, monospace;
+    overflow-x: auto;
 }
