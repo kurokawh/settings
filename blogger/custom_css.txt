@@ -1,0 +1,32 @@
+.code
+{
+    background-color: #232323; 
+    color: #e6e0db; 
+    font-size: 14px; 
+    line-height: 14px; 
+    padding: 0px; 
+    text-align: left;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.log
+{
+    background-color: #232323; 
+    color: #e6e0db; 
+    font-size: 14px; 
+    line-height: 14px; 
+    padding: 0px; 
+    text-align: left;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.mobile .code
+{
+    background-color: #232323; 
+    color: #e6e0db; 
+    font-size: 14px; 
+    line-height: 14px; 
+    padding: 0px; 
+    text-align: left;
+    font-family: "Courier New", Courier, monospace;
+}
