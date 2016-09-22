@@ -1,6 +1,3 @@
-;; Red Hat Linux default .emacs initialization file
-
-
 ;;; package.el ;;;
 (require 'package)
 ;; MELPAを追加
@@ -35,11 +32,9 @@
 ;; Stop at the end of the file, not just add lines
 (setq next-line-add-newlines nil)
 
-;; Enable wheelmouse support by default
-;(if (not running-xemacs)
-;    (require 'mwheel) ; Emacs
-;  (mwheel-install) ; XEmacs
-;)
+;; replace yes/no question with y/n.
+;; http://rubikitch.com/2016/08/28/yes-or-no-p/
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 
 (line-number-mode t)
