@@ -166,6 +166,8 @@
   (require 'moccur-edit nil t))
 
 ;; settings of wgrep
+;; run wgrep-change-to-wgrep-mode(C-c C-p) in *grep* buffer
+;; then save (C-c C-x) + wgrep-save-all-buffers OR cancel (C-c C-k) after edit.
 (require 'wgrep nil t)
 
 ;; setting of undo-tree
