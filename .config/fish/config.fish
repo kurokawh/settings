@@ -32,6 +32,7 @@ alias	fmt_json	'python -mjson.tool'
 alias	fmt_xml	'xmllint --format'
 
 #alias	rmbak	"rm *~ #*# .*~"
+alias	rmbak	"rm *~ .*~"
 alias	te	/cygdrive/c/files/Hidemaru/Hidemaru.exe
 alias	psall	'ps -aux | grep kurokawa'
 
