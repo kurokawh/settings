@@ -113,7 +113,7 @@
 (global-set-key [zenkaku-hankaku] (quote toggle-input-method))
 (global-set-key [C-prior] (quote switch-to-prev-buffer))
 (global-set-key [C-next] (quote switch-to-next-buffer))
-
+(global-set-key [13] (quote electric-indent-just-newline)) ; force to disable auto-indent
 
 (setq default-major-mode 'text-mode)
 (custom-set-variables
@@ -121,8 +121,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-; '(haskell-mode-hook (quote (turn-on-haskell-indent)))
- '(safe-local-variable-values (quote ((haskell-process-use-ghci . t) (haskell-indent-spaces . 4))))
+ '(package-selected-packages
+   (quote
+    (jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur auto-install auto-complete)))
+ '(safe-local-variable-values
+   (quote
+    ((haskell-process-use-ghci . t)
+     (haskell-indent-spaces . 4))))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -171,6 +176,8 @@
   (require 'moccur-edit nil t))
 
 ;; settings of wgrep
+;; run wgrep-change-to-wgrep-mode(C-c C-p) in *grep* buffer
+;; then save (C-c C-x) + wgrep-save-all-buffers OR cancel (C-c C-k) after edit.
 (require 'wgrep nil t)
 
 ;; setting of undo-tree
