@@ -1,6 +1,3 @@
-;; Red Hat Linux default .emacs initialization file
-
-
 ;;; package.el ;;;
 (require 'package)
 ;; MELPAを追加
@@ -14,32 +11,15 @@
 (package-initialize)
 
 
-;; Are we running XEmacs or Emacs?
-;; emacs on mac requires this defvar.
-(defvar running-xemacs (string-match "XEmacs\\|Lucid" emacs-version))
-
-;; Set up the keyboard so the delete key on both the regular keyboard
-;; and the keypad delete the character under the cursor and to the right
-;; under X, instead of the default, backspace behavior.
-;(global-set-key [delete] 'delete-char)
-;(global-set-key [kp-delete] 'delete-char)
-
-;; Turn on font-lock mode for Emacs
-(cond ((not running-xemacs)
-       (global-font-lock-mode t)
-))
-
 ;; Always end a file with a newline
 (setq require-final-newline t)
 
 ;; Stop at the end of the file, not just add lines
 (setq next-line-add-newlines nil)
 
-;; Enable wheelmouse support by default
-;(if (not running-xemacs)
-;    (require 'mwheel) ; Emacs
-;  (mwheel-install) ; XEmacs
-;)
+;; replace yes/no question with y/n.
+;; http://rubikitch.com/2016/08/28/yes-or-no-p/
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 
 (line-number-mode t)
@@ -247,7 +227,7 @@
 ;;; for emacsclient ;;;
 (require 'server)
 (defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
-(setq server-socket-dir "~/.emacs.d")
+;(setq server-socket-dir "~/.emacs.d")
 (unless (server-running-p)
   (server-start))
 
