@@ -93,7 +93,7 @@
 (global-set-key [zenkaku-hankaku] (quote toggle-input-method))
 (global-set-key [C-prior] (quote switch-to-prev-buffer))
 (global-set-key [C-next] (quote switch-to-next-buffer))
-
+(global-set-key [13] (quote electric-indent-just-newline)) ; force to disable auto-indent
 
 (setq default-major-mode 'text-mode)
 (custom-set-variables
