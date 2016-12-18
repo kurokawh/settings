@@ -231,8 +231,7 @@
 
 ;;; for emacsclient ;;;
 (require 'server)
-(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
-(setq server-socket-dir "~/.emacs.d") ; needed for mac
+;(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack ;xxx emacsclient cannot find socket if this is enabled.
 (unless (server-running-p)
   (server-start))
 
