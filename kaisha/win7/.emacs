@@ -103,7 +103,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur auto-install auto-complete)))
+    (icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur auto-install auto-complete)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -131,13 +131,13 @@
 
 ;;; emacs-zissen ===>
 ;; auto-complete
-(when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories
-	       "~/.emacs.d/elisp/ac-dict")
-  (setq ac-auto-show-menu nil) ; disable auto show menu
-;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
-  (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
-  (ac-config-default))
+;; (when (require 'auto-complete-config nil t)
+;;   (add-to-list 'ac-dictionary-directories
+;; 	       "~/.emacs.d/elisp/ac-dict")
+;;   (setq ac-auto-show-menu nil) ; disable auto show menu
+;; ;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
+;;   (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
+;;   (ac-config-default))
 
 ;; setting of color_moccur
 (when (require 'color-moccur nil t)
@@ -256,4 +256,15 @@
       '(lambda ()
 	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
 	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
+	 (local-set-key [110] (quote gtags-select-tag-other-window)) ; n
 	 ))
+
+;(require 'icicles)
+;(icy-mode)
+;(define-key icicle-mode-map "\C-h" 'backward-delete-char)
+;(setq icy-mode-hook
+;      '(lambda ()
+;         (local-set-key "\C-h" (quote delete-backward-char))
+;         ))
+
+

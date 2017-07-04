@@ -68,10 +68,10 @@ alias	stack	env LANG= stack
 
 
 ### svn ###
-alias   lsco    "svn stat \!* | grep -v ^\?"
-alias   lsup    "svn stat -u \!* | grep -v ^\?"
-alias   rmtmpf  "svn stat --no-ignore \!* | grep ^\[\?\|I\] | cut -c 8- | xargs rm "
-alias   rmtmpd  "svn stat --no-ignore \!* | grep ^\[\?\|I\] | cut -c 8- | xargs rm -rf "
+alias   lsco    "svn stat \!* | grep -v '^\?'"
+alias   lsup    "svn stat -u \!* | grep -v '^\?'"
+alias   rmtmpf  "svn stat --no-ignore \!* | grep -v '\.git' | grep ^\[\?\|I\] | cut -c 8- | sed -e 's/'\'/'\\'\''/g' | xargs rm "
+alias   rmtmpd  "svn stat --no-ignore \!* | grep -v '\.git' | grep ^\[\?\|I\] | cut -c 8- | sed -e 's/'\'/'\\'\''/g' | xargs rm -rf "
 alias   svn     svn --non-interactive
 
 

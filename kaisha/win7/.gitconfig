@@ -2,4 +2,4 @@
 	name = Hiroyuki Kurokawa
 	email = hiroyuki.kurokawa@nifty.com
 [core]
-	autocrlf = true
+	autoCRLF = false
