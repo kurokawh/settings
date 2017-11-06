@@ -125,11 +125,18 @@ def configure(keymap):
         def search_next(): 
             if keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
                 keymap.command_InputKey("C-g")()
+            if keymap.getWindow().getProcessName() == "devenv.exe": #VS
+                keymap.command_InputKey("F3")()
+#Window : exe   : devenv.exe
+#       : class : HwndWrapper[DefaultDomain;;d8bffa2a-a66f-42a7-ad71-2ecfafda29c9]
+#       : text  : abstract_storage_prx - Microsoft Visual Studio
             else:
                 keymap.command_InputKey("A-n")() # same as defult for other apps
         def search_prev(): 
             if keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
                 keymap.command_InputKey("C-S-g")()
+            if keymap.getWindow().getProcessName() == "devenv.exe": #VS
+                keymap.command_InputKey("S-F3")()
             else:
                 keymap.command_InputKey("A-p")() # same as defult for other apps
         def ctrl_m():
@@ -275,7 +282,7 @@ def configure(keymap):
         def kill_ring_save():
             keymap.command_InputKey("C-c")()
             # Microsoft Excel/Word(outlook) 以外
-            if not keymap.getWindow().getClassName().startswith("EXCEL") and not keymap.getWindow().getClassName() == "_WwG":
+            if not keymap.getWindow().getClassName().startswith("EXCEL") and not keymap.getWindow().getClassName().startswith("POWERPNT") and not keymap.getWindow().getClassName() == "_WwG":
                 # 選択されているリージョンのハイライトを解除するために Esc を発行しているが、
                 # アプリケーションソフトによっては効果なし
                 keymap.command_InputKey("Esc")()
@@ -538,6 +545,7 @@ def configure(keymap):
         keymap_emacs["C-Underscore"]    = reset(undo)
         keymap_emacs["C-a"]             = reset(mark(move_beginning_of_line))
 #        keymap_emacs["C-c"]             = reset(windows_copy)
+        keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
         keymap_emacs["C-e"]             = reset(mark(move_end_of_line))
         keymap_emacs["C-g"]             = reset(keybord_quit)
         keymap_emacs["C-i"]             = repeat(ctrl_i)
