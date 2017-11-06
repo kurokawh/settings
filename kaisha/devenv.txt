@@ -1,0 +1,31 @@
+emacsclient_admin
+C:\cygwin64\bin\run.exe
+/usr/bin/emacsclient +$(CurLine):$(CurCol) $(ItemFileName)$(ItemExt)
+$(ItemDir)
+------------------------------------------------------------------
+SVN Blame
+C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe
+/command:blame /path:"$(ItemPath)" /line:$(CurLine) /startrev:1 /endrev:"-1"
+
+------------------------------------------------------------------
+SVN Diff
+C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe
+/command:diff /path:"$(ItemPath)"
+
+------------------------------------------------------------------
+SVN Log
+C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe
+/command:log /path:"$(ItemPath)"
+
+------------------------------------------------------------------
+SVN Update
+C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe
+/command:update /path:"$(ItemPath)"
+
+------------------------------------------------------------------
+SVN Revert
+C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe
+/command:revert /path:"$(ItemPath)"
+
+------------------------------------------------------------------
+
