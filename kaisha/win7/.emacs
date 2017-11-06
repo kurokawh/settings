@@ -103,7 +103,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur auto-install auto-complete)))
+    (js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur auto-install auto-complete)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -268,3 +268,6 @@
 ;         ))
 
 
+;; enable js2-mode for javascript
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
