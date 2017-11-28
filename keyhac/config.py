@@ -125,7 +125,9 @@ def configure(keymap):
         def search_next(): 
             if keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
                 keymap.command_InputKey("C-g")()
-            if keymap.getWindow().getProcessName() == "devenv.exe": #VS
+            #VS or FireFox
+            if keymap.getWindow().getProcessName() == "devenv.exe" \
+               or keymap.getWindow().getProcessName() == "firefox.exe":
                 keymap.command_InputKey("F3")()
 #Window : exe   : devenv.exe
 #       : class : HwndWrapper[DefaultDomain;;d8bffa2a-a66f-42a7-ad71-2ecfafda29c9]
@@ -135,7 +137,9 @@ def configure(keymap):
         def search_prev(): 
             if keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
                 keymap.command_InputKey("C-S-g")()
-            if keymap.getWindow().getProcessName() == "devenv.exe": #VS
+            #VS or FireFox
+            if keymap.getWindow().getProcessName() == "devenv.exe" \
+               or keymap.getWindow().getProcessName() == "firefox.exe":
                 keymap.command_InputKey("S-F3")()
             else:
                 keymap.command_InputKey("A-p")() # same as defult for other apps
