@@ -66,6 +66,9 @@
 
 ;;; for csharp ;;;
 (load "csharp-mode")
+(add-hook 'csharp-mode-hook
+	  '(lambda ()
+	     (set-variable (quote tab-width) 4)))
 
 
 ;;;; for gdb ;;;;
