@@ -101,8 +101,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-; '(haskell-mode-hook (quote (turn-on-haskell-indent)))
- '(safe-local-variable-values (quote ((haskell-process-use-ghci . t) (haskell-indent-spaces . 4))))
+ '(package-selected-packages
+   (quote
+    (icicles wgrep visual-regexp undo-tree psvn moccur-edit migemo mic-paren intero inf-ruby flycheck-haskell csharp-mode auto-install auto-complete)))
+ '(safe-local-variable-values
+   (quote
+    ((haskell-process-use-ghci . t)
+     (haskell-indent-spaces . 4))))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -183,19 +188,9 @@
 (add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.10.2/hlint-1.9.30/")
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
-
-(require 'flycheck)
-(require 'flycheck-haskell)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
 (add-hook 'haskell-mode-hook
 	  '(lambda ()
 	     (ghc-init)
-             (setq flycheck-checker 'haskell-ghc)
-             (setq flycheck-checker 'haskell-hlint)
-;             (setq flycheck-disabled-checkers '(haskell-ghc))
-;             (setq flycheck-disabled-checkers '(haskell-hlint))
-	     (flycheck-mode 1)
 	     (turn-on-haskell-indent)
 	     ))
 
