@@ -271,3 +271,8 @@
 ;; enable js2-mode for javascript
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(setq js2-mode-hook
+      '(lambda ()
+	 (setq js2-basic-offset 2)             ; indent 2 spaces
+	 (set-variable 'indent-tabs-mode nil)  ; use space not tab
+	 ))
