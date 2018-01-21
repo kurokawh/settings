@@ -101,8 +101,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-; '(haskell-mode-hook (quote (turn-on-haskell-indent)))
- '(safe-local-variable-values (quote ((haskell-process-use-ghci . t) (haskell-indent-spaces . 4))))
+ '(package-selected-packages
+   (quote
+    (wgrep w3m visual-regexp undo-tree psvn migemo git-blame git flycheck-haskell flycheck-ghcmod csharp-mode color-moccur auto-install auto-complete)))
+ '(safe-local-variable-values
+   (quote
+    ((haskell-process-use-ghci . t)
+     (haskell-indent-spaces . 4))))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
