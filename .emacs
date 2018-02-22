@@ -35,12 +35,14 @@
 (add-hook 'c-mode-common-hook
 	  '(lambda ()
 	     (c-set-style "cc-mode")
+	     (c-set-offset (quote substatement-open) 0 nil) ; no indent in next line of if/for/etc
 	     (set-variable (quote tab-width) 4)))
 
 ;; C++ style
 (add-hook 'c++-mode-hook
 	  '(lambda()
 	     (set-variable (quote tab-width) 4)
+	     (c-set-offset (quote substatement-open) 0 nil) ; no indent in next line of if/for/etc
 	     (c-set-style "cc-mode")))
 ;             (c-set-style "bsd")))
 ;             (c-set-style "k&r")))

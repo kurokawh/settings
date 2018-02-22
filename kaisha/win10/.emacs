@@ -35,12 +35,14 @@
 (add-hook 'c-mode-common-hook
 	  '(lambda ()
 	     (c-set-style "cc-mode")
+	     (c-set-offset (quote substatement-open) 0 nil) ; no indent in next line of if/for/etc
 	     (set-variable (quote tab-width) 4)))
 
 ;; C++ style
 (add-hook 'c++-mode-hook
 	  '(lambda()
 	     (set-variable (quote tab-width) 4)
+	     (c-set-offset (quote substatement-open) 0 nil) ; no indent in next line of if/for/etc
 	     (c-set-style "cc-mode")))
 ;             (c-set-style "bsd")))
 ;             (c-set-style "k&r")))
@@ -66,6 +68,9 @@
 
 ;;; for csharp ;;;
 (load "csharp-mode")
+(add-hook 'csharp-mode-hook
+	  '(lambda ()
+	     (set-variable (quote tab-width) 4)))
 
 
 ;;;; for gdb ;;;;
@@ -103,7 +108,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (wgrep web-completion-data visual-regexp undo-tree migemo magit list-packages-ext jaword flycheck-haskell color-moccur auto-install ac-html)))
+    (csharp-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur auto-install auto-complete)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -124,20 +129,20 @@
 (setq cua-enable-cua-keys nil) ; そのままだと C-x が切り取りになってしまったりするので無効化
 
 ;;; auto-install.el ;;;
-(require 'auto-install)
-(auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
+;(require 'auto-install)
+;(auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
 ;(auto-install-compatibility-setup)
-(add-to-list 'load-path "~/.emacs.d/auto-install")
+;(add-to-list 'load-path "~/.emacs.d/auto-install")
 
 ;;; emacs-zissen ===>
 ;; auto-complete
-(when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories
-	       "~/.emacs.d/elisp/ac-dict")
-  (setq ac-auto-show-menu nil) ; disable auto show menu
-;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
-  (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
-  (ac-config-default))
+;; (when (require 'auto-complete-config nil t)
+;;   (add-to-list 'ac-dictionary-directories
+;; 	       "~/.emacs.d/elisp/ac-dict")
+;;   (setq ac-auto-show-menu nil) ; disable auto show menu
+;; ;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
+;;   (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
+;;   (ac-config-default))
 
 ;; setting of color_moccur
 (when (require 'color-moccur nil t)
@@ -185,7 +190,7 @@
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
 (add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.10.2/ghc-mod-5.5.0.0/elisp/")
-(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.10.2/hlint-1.9.27/")
+(add-to-list 'load-path "/mnt/c/sr/snapshots/8a26ed14/share/x86_64-windows-ghc-8.2.2/hlint-2.0.11/")
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
 (add-hook 'haskell-mode-hook
@@ -226,7 +231,7 @@
 
 ;;; for emacsclient ;;;
 (require 'server)
-(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
+;(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
 ;(setq server-socket-dir "~/.emacs.d")
 (unless (server-running-p)
   (server-start))
@@ -256,4 +261,23 @@
       '(lambda ()
 	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
 	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
+	 (local-set-key [110] (quote gtags-select-tag-other-window)) ; n
+	 ))
+
+;(require 'icicles)
+;(icy-mode)
+;(define-key icicle-mode-map "\C-h" 'backward-delete-char)
+;(setq icy-mode-hook
+;      '(lambda ()
+;         (local-set-key "\C-h" (quote delete-backward-char))
+;         ))
+
+
+;; enable js2-mode for javascript
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(setq js2-mode-hook
+      '(lambda ()
+	 (setq js2-basic-offset 2)             ; indent 2 spaces
+	 (set-variable 'indent-tabs-mode nil)  ; use space not tab
 	 ))
