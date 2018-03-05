@@ -1,0 +1,11 @@
+Xft*antialias:      true
+Xft*autohint:       true
+XTerm*background:   white
+XTerm*foreground:   black
+XTerm*cursorColor:  grey
+XTerm*scrollBar:    true
+XTerm*rightScrollBar:   false
+XTerm*saveLines:    10000
+XTerm*faceName:     BitStream Vera Sans Mono
+XTerm*faceSize:     20
+XTerm*toolBar:      On
