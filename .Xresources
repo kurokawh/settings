@@ -6,6 +6,6 @@ XTerm*cursorColor:  grey
 XTerm*scrollBar:    true
 XTerm*rightScrollBar:   false
 XTerm*saveLines:    10000
-XTerm*faceName:     BitStream Vera Sans Mono
+XTerm*faceName:     Courier new
 XTerm*faceSize:     20
 XTerm*toolBar:      On
