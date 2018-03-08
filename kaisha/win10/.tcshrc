@@ -85,6 +85,9 @@ setenv	PAGER	'lv -c'
 alias	javac	c:/java/jdk1.6/bin/javac.exe
 alias	java	c:/java/jdk1.6/bin/java.exe
 
+set autolist=ambiguous
+source ~/.git-completion.tcsh
+
 
 ### tcshrc for ssh-agent ===> ###
 setenv SSH_ENV "$HOME/.ssh/environment"
