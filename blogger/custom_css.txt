@@ -7,8 +7,9 @@
     padding: 0px; 
     text-align: left;
     font-family: "Courier New", Courier, monospace;
-    white-space: pre-wrap;
     word-wrap: break-word;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .log
