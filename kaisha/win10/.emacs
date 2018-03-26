@@ -281,3 +281,11 @@
 	 (setq js2-basic-offset 2)             ; indent 2 spaces
 	 (set-variable 'indent-tabs-mode nil)  ; use space not tab
 	 ))
+
+;; shell check
+;; http://futurismo.biz/archives/5995
+(require 'ispell)
+(setq ispell-program-name "aspell")
+;; setting to use Japanese with English
+(eval-after-load "ispell"
+  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
