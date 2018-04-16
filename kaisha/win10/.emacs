@@ -108,7 +108,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (csharp-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur auto-install auto-complete)))
+    (markdown-mode csharp-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur auto-install auto-complete)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -282,10 +282,22 @@
 	 (set-variable 'indent-tabs-mode nil)  ; use space not tab
 	 ))
 
-;; shell check
+;; spell check
 ;; http://futurismo.biz/archives/5995
 (require 'ispell)
 (setq ispell-program-name "aspell")
 ;; setting to use Japanese with English
 (eval-after-load "ispell"
   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+
+
+;; markdown-mode & gfm-mode
+;; https://jblevins.org/projects/markdown-mode/
+;; https://qiita.com/umeneri/items/8824907d50e3108481b3
+(autoload 'markdown-mode "markdown-mode"
+"Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(setq markdown-command "perl ~/bin/Markdown.pl")
