@@ -35,12 +35,14 @@
 (add-hook 'c-mode-common-hook
 	  '(lambda ()
 	     (c-set-style "cc-mode")
+	     (c-set-offset (quote substatement-open) 0 nil) ; no indent in next line of if/for/etc
 	     (set-variable (quote tab-width) 4)))
 
 ;; C++ style
 (add-hook 'c++-mode-hook
 	  '(lambda()
 	     (set-variable (quote tab-width) 4)
+	     (c-set-offset (quote substatement-open) 0 nil) ; no indent in next line of if/for/etc
 	     (c-set-style "cc-mode")))
 ;             (c-set-style "bsd")))
 ;             (c-set-style "k&r")))
@@ -117,7 +119,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 203 :width normal)))))
 
 (setq inhibit-startup-message t)
 
@@ -254,9 +256,32 @@
          (local-set-key "\C-j\C-f" 'gtags-find-file)
          (local-set-key "\C-j\C-l" 'gtags-parse-file)
          (local-set-key "\C-j\C-j" 'gtags-pop-stack)
-         ))
-(setq gtags-select-mode-hook
-      '(lambda ()
-	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
 	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
+	 (local-set-key [110] (quote gtags-select-tag-other-window)) ; n
 	 ))
+
+;(require 'icicles)
+;(icy-mode)
+;(define-key icicle-mode-map "\C-h" 'backward-delete-char)
+;(setq icy-mode-hook
+;      '(lambda ()
+;         (local-set-key "\C-h" (quote delete-backward-char))
+;         ))
+
+
+;; enable js2-mode for javascript
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(setq js2-mode-hook
+      '(lambda ()
+	 (setq js2-basic-offset 2)             ; indent 2 spaces
+	 (set-variable 'indent-tabs-mode nil)  ; use space not tab
+	 ))
+
+;; spell check
+;; http://futurismo.biz/archives/5995
+(require 'ispell)
+(setq ispell-program-name "aspell")
+;; setting to use Japanese with English
+(eval-after-load "ispell"
+  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))

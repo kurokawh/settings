@@ -68,11 +68,12 @@ alias	stack	env LANG= stack
 
 
 ### svn ###
-alias   lsco    "svn stat \!* | grep -v ^\?"
-alias   lsup    "svn stat -u \!* | grep -v ^\?"
-alias   rmtmpf  "svn stat --no-ignore \!* | grep ^\[\?\|I\] | cut -c 8- | xargs rm "
-alias   rmtmpd  "svn stat --no-ignore \!* | grep ^\[\?\|I\] | cut -c 8- | xargs rm -rf "
-alias   svn     svn --non-interactive
+alias   lsco    "svn stat \!* | grep -v '^\?'"
+alias   lsup    "svn stat -u \!* | grep -v '^\?'"
+alias   rmtmpf  "svn stat --no-ignore \!* | grep -v '\.git' | grep ^\[\?\|I\] | cut -c 8- | sed -e 's/'\'/'\\'\''/g' | xargs rm "
+alias   rmtmpd  "svn stat --no-ignore \!* | grep -v '\.git' | grep ^\[\?\|I\] | cut -c 8- | sed -e 's/'\'/'\\'\''/g' | xargs rm -rf "
+# vvvvv: NG because svn: E000022: Can't convert string from native encoding to 'UTF-8'
+# alias   svn     env LANG=C svn --non-interactive
 
 
 #setenv	DISPLAY	localhost:0.0
@@ -133,7 +134,7 @@ call_start_agent:
 	endif
 
 call_ssh_add:
-    ssh-add
+    ssh-add ~/.ssh/{id_rsa,id_dsa,id_ed25519,identity} ~/.ssh/*/{id_rsa,id_dsa,id_ed25519,identity}
 
 exit_ssh:
 ### <=== ssh-agent ###
