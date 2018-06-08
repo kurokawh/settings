@@ -549,7 +549,6 @@ def configure(keymap):
         keymap_emacs["C-Underscore"]    = reset(undo)
         keymap_emacs["C-a"]             = reset(mark(move_beginning_of_line))
 #        keymap_emacs["C-c"]             = reset(windows_copy)
-        keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
         keymap_emacs["C-e"]             = reset(mark(move_end_of_line))
         keymap_emacs["C-g"]             = reset(keybord_quit)
         keymap_emacs["C-i"]             = repeat(ctrl_i)
@@ -631,5 +630,7 @@ def configure(keymap):
         keymap_emacs["C-S-a"]           = repeat(mark(ctrl_shift_a))
         keymap_emacs["C-S-e"]           = repeat(mark(ctrl_shift_e))
         keymap_emacs["C-S-s"]           = reset(save_buffer)
+        keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
+        keymap_emacs["A-S-s"]           = reset(write_file)
         ### <===
 
