@@ -173,6 +173,8 @@ def configure(keymap):
             if keymap.getWindow().getClassName() == "_WwG": # Microsoft Word
                 if keymap_emacs.is_mark:
                     keymap.command_InputKey("Left-S")()
+        def ctrl_shift_u():
+            keymap.command_InputKey("C-u")()
         ### <=== kuro
 
         ########################################################################
@@ -630,6 +632,7 @@ def configure(keymap):
         keymap_emacs["C-S-a"]           = repeat(mark(ctrl_shift_a))
         keymap_emacs["C-S-e"]           = repeat(mark(ctrl_shift_e))
         keymap_emacs["C-S-s"]           = reset(save_buffer)
+        keymap_emacs["C-S-u"]           = repeat(mark(ctrl_shift_u))
         keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
         keymap_emacs["A-S-s"]           = reset(write_file)
         ### <===
