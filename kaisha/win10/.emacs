@@ -256,12 +256,6 @@
          (local-set-key "\C-j\C-f" 'gtags-find-file)
          (local-set-key "\C-j\C-l" 'gtags-parse-file)
          (local-set-key "\C-j\C-j" 'gtags-pop-stack)
-         ))
-(setq gtags-select-mode-hook
-      '(lambda ()
-	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
-	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
-	 (local-set-key [110] (quote gtags-select-tag-other-window)) ; n
 	 ))
 
 ;(require 'icicles)
