@@ -106,7 +106,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (wgrep w3m visual-regexp undo-tree psvn migemo git-blame git flycheck-haskell flycheck-ghcmod csharp-mode color-moccur auto-install auto-complete)))
+    (js2-mode wgrep w3m visual-regexp undo-tree psvn migemo git-blame git flycheck-haskell flycheck-ghcmod csharp-mode color-moccur auto-install auto-complete)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -263,9 +263,30 @@
          (local-set-key "\C-j\C-f" 'gtags-find-file)
          (local-set-key "\C-j\C-l" 'gtags-parse-file)
          (local-set-key "\C-j\C-j" 'gtags-pop-stack)
-         ))
-(setq gtags-select-mode-hook
-      '(lambda ()
-	 (local-set-key "\C-j\C-j" 'gtags-pop-stack)
-	 (local-set-key [127] 'gtags-pop-stack)      ; [DEL]
 	 ))
+
+;(require 'icicles)
+;(icy-mode)
+;(define-key icicle-mode-map "\C-h" 'backward-delete-char)
+;(setq icy-mode-hook
+;      '(lambda ()
+;         (local-set-key "\C-h" (quote delete-backward-char))
+;         ))
+
+
+;; enable js2-mode for javascript
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(setq js2-mode-hook
+      '(lambda ()
+	 (setq js2-basic-offset 2)             ; indent 2 spaces
+	 (set-variable 'indent-tabs-mode nil)  ; use space not tab
+	 ))
+
+;; spell check
+;; http://futurismo.biz/archives/5995
+(require 'ispell)
+(setq ispell-program-name "aspell")
+;; setting to use Japanese with English
+(eval-after-load "ispell"
+  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
