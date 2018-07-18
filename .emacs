@@ -108,7 +108,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete psvn moccur-edit mic-paren intero inf-ruby flycheck-haskell)))
+    (markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell moccur-edit)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
