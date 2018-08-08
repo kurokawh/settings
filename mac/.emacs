@@ -35,12 +35,14 @@
 (add-hook 'c-mode-common-hook
 	  '(lambda ()
 	     (c-set-style "cc-mode")
+	     (c-set-offset (quote substatement-open) 0 nil) ; no indent in next line of if/for/etc
 	     (set-variable (quote tab-width) 4)))
 
 ;; C++ style
 (add-hook 'c++-mode-hook
 	  '(lambda()
 	     (set-variable (quote tab-width) 4)
+	     (c-set-offset (quote substatement-open) 0 nil) ; no indent in next line of if/for/etc
 	     (c-set-style "cc-mode")))
 ;             (c-set-style "bsd")))
 ;             (c-set-style "k&r")))
@@ -106,7 +108,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (js2-mode wgrep w3m visual-regexp undo-tree psvn migemo git-blame git flycheck-haskell flycheck-ghcmod csharp-mode color-moccur auto-install auto-complete)))
+    (markdown-mode js2-mode jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell psvn flycheck-ghcmod)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -290,3 +292,15 @@
 ;; setting to use Japanese with English
 (eval-after-load "ispell"
   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+
+
+;; markdown-mode & gfm-mode
+;; https://jblevins.org/projects/markdown-mode/
+;; https://qiita.com/umeneri/items/8824907d50e3108481b3
+(autoload 'markdown-mode "markdown-mode"
+"Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(setq markdown-command "perl ~/bin/Markdown.pl")
