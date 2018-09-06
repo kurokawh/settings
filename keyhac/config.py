@@ -100,6 +100,18 @@ def configure(keymap):
         keymap_emacs.repeat_count = 1
 
         ### kuro ===>
+        # アプリケーションデフォルトのショートカットキーを利用する目的で、
+        # +SHIFT で、デフォルトショートカットキーとするアプリのリスト。
+        # 例： POWERPOINT.EXE では C-b は左移動ではなく、強調文字設定したいので
+        # S-C-b を C-b に割り当てる。 主に ctrl_shift_?() 向け。
+        def is_default_shortcut_requested(window):
+            if window.getProcessName() in ("POWERPNT.EXE",       # power point
+                                           "EXCEL.EXE",          # excel
+                                           "WINWORD.EXE",        # word
+                                           "firefox.exe"):       # Firefox
+                return False
+            return True
+
         def forward_word():
             keymap.command_InputKey("C-Right")()
         def backward_word():
@@ -129,9 +141,6 @@ def configure(keymap):
             if keymap.getWindow().getProcessName() == "devenv.exe" \
                or keymap.getWindow().getProcessName() == "firefox.exe":
                 keymap.command_InputKey("F3")()
-#Window : exe   : devenv.exe
-#       : class : HwndWrapper[DefaultDomain;;d8bffa2a-a66f-42a7-ad71-2ecfafda29c9]
-#       : text  : abstract_storage_prx - Microsoft Visual Studio
             else:
                 keymap.command_InputKey("A-n")() # same as defult for other apps
         def search_prev(): 
@@ -144,35 +153,32 @@ def configure(keymap):
             else:
                 keymap.command_InputKey("A-p")() # same as defult for other apps
         def ctrl_m():
-            # PowerPoint or EXCEL ?
-            if keymap.getWindow().getProcessName().startswith("POWERPNT") \
-                or keymap.getWindow().getClassName().startswith("EXCEL"):
+            if is_default_shortcut_requested(keymap.getWindow()):
                 # disable newline in order to insert new slide with C-m
                 keymap.command_InputKey("C-m")()
             else:
                 keymap.command_InputKey("Enter")()
             keymap_emacs.is_mark = False
+        def ctrl_shift_a():
+            keymap.command_InputKey("S-Home")()
         def ctrl_shift_b():
-            # PowerPoint or EXCEL ?
-            if keymap.getWindow().getProcessName().startswith("POWERPNT") \
-                or keymap.getWindow().getClassName().startswith("EXCEL"):
+            if is_default_shortcut_requested(keymap.getWindow()):
                 # use C-S-b to BOLD FONT instead of C-b.
                 keymap.command_InputKey("C-b")()
             else:
                 keymap.command_InputKey("C-S-b")()
-        def ctrl_shift_p():
-            #if keymap.getWindow().getClassName() == "paneClassDC": # PowerPoint
-                # use C-S-p to PRINT.
-                keymap.command_InputKey("C-p")()
-            #else:
-            #    keymap.command_InputKey("C-S-p")()
-        def ctrl_shift_a():
-            keymap.command_InputKey("S-Home")()
         def ctrl_shift_e():
             keymap.command_InputKey("S-End")()
             if keymap.getWindow().getClassName() == "_WwG": # Microsoft Word
                 if keymap_emacs.is_mark:
                     keymap.command_InputKey("Left-S")()
+        def ctrl_shift_k():
+            if is_default_shortcut_requested(keymap.getWindow()):
+                keymap.command_InputKey("C-k")()
+            else:
+                keymap.command_InputKey("C-S-k")()
+        def ctrl_shift_p():
+            keymap.command_InputKey("C-p")()
         def ctrl_shift_u():
             keymap.command_InputKey("C-u")()
         ### <=== kuro
@@ -288,7 +294,7 @@ def configure(keymap):
         def kill_ring_save():
             keymap.command_InputKey("C-c")()
             # Microsoft Excel/Word(outlook) 以外
-            if not keymap.getWindow().getClassName().startswith("EXCEL") and not keymap.getWindow().getProcessName().startswith("POWERPNT") and not keymap.getWindow().getClassName() == "_WwG":
+            if not is_default_shortcut_requested(keymap.getWindow()):
                 # 選択されているリージョンのハイライトを解除するために Esc を発行しているが、
                 # アプリケーションソフトによっては効果なし
                 keymap.command_InputKey("Esc")()
@@ -418,7 +424,7 @@ def configure(keymap):
 
         def keybord_quit():
             # Microsoft Excel/Word(outlook) 以外
-            if not keymap.getWindow().getClassName().startswith("EXCEL") and not keymap.getWindow().getClassName() == "_WwG":
+            if not is_default_shortcut_requested(keymap.getWindow()):
                 # 選択されているリージョンのハイライトを解除するために Esc を発行しているが、
                 # アプリケーションソフトによっては効果なし
                 keymap.command_InputKey("Esc")()
@@ -627,10 +633,11 @@ def configure(keymap):
         keymap_emacs["A-n"]             = reset(search_next)
         keymap_emacs["A-p"]             = reset(search_prev)
         #keymap_emacs["A-%"]             = repeat(mark(replace_string))
-        keymap_emacs["C-S-b"]           = repeat(mark(ctrl_shift_b))
-        keymap_emacs["C-S-p"]           = repeat(mark(ctrl_shift_p))
         keymap_emacs["C-S-a"]           = repeat(mark(ctrl_shift_a))
+        keymap_emacs["C-S-b"]           = repeat(mark(ctrl_shift_b))
         keymap_emacs["C-S-e"]           = repeat(mark(ctrl_shift_e))
+        keymap_emacs["C-S-k"]           = repeat(mark(ctrl_shift_k))
+        keymap_emacs["C-S-p"]           = repeat(mark(ctrl_shift_p))
         keymap_emacs["C-S-s"]           = reset(save_buffer)
         keymap_emacs["C-S-u"]           = repeat(mark(ctrl_shift_u))
         keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
