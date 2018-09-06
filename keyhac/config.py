@@ -145,7 +145,7 @@ def configure(keymap):
                 keymap.command_InputKey("A-p")() # same as defult for other apps
         def ctrl_m():
             # PowerPoint or EXCEL ?
-            if keymap.getWindow().getClassName() == "paneClassDC" \
+            if keymap.getWindow().getProcessName().startswith("POWERPNT") \
                 or keymap.getWindow().getClassName().startswith("EXCEL"):
                 # disable newline in order to insert new slide with C-m
                 keymap.command_InputKey("C-m")()
@@ -154,7 +154,7 @@ def configure(keymap):
             keymap_emacs.is_mark = False
         def ctrl_shift_b():
             # PowerPoint or EXCEL ?
-            if keymap.getWindow().getClassName() == "paneClassDC" \
+            if keymap.getWindow().getProcessName().startswith("POWERPNT") \
                 or keymap.getWindow().getClassName().startswith("EXCEL"):
                 # use C-S-b to BOLD FONT instead of C-b.
                 keymap.command_InputKey("C-b")()
@@ -288,7 +288,7 @@ def configure(keymap):
         def kill_ring_save():
             keymap.command_InputKey("C-c")()
             # Microsoft Excel/Word(outlook) 以外
-            if not keymap.getWindow().getClassName().startswith("EXCEL") and not keymap.getWindow().getClassName().startswith("POWERPNT") and not keymap.getWindow().getClassName() == "_WwG":
+            if not keymap.getWindow().getClassName().startswith("EXCEL") and not keymap.getWindow().getProcessName().startswith("POWERPNT") and not keymap.getWindow().getClassName() == "_WwG":
                 # 選択されているリージョンのハイライトを解除するために Esc を発行しているが、
                 # アプリケーションソフトによっては効果なし
                 keymap.command_InputKey("Esc")()
