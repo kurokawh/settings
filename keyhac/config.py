@@ -109,8 +109,8 @@ def configure(keymap):
                                            "EXCEL.EXE",          # excel
                                            "WINWORD.EXE",        # word
                                            "firefox.exe"):       # Firefox
-                return False
-            return True
+                return True
+            return False
 
         def forward_word():
             keymap.command_InputKey("C-Right")()
