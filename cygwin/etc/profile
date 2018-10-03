@@ -34,7 +34,7 @@ if [ -z "${PROFILEREAD+true}" ] ; then
 
   : ${ORIGINAL_PATH=${PATH}}
   if [ ${CYGWIN_NOWINPATH-addwinpath} = "addwinpath" ] ; then
-#    PATH="/usr/local/bin:/usr/bin${PATH:+:${PATH}}"
+    PATH="/usr/local/bin:/usr/bin${PATH:+:${PATH}}"
   else
     PATH="/usr/local/bin:/usr/bin"
   fi
@@ -154,4 +154,3 @@ export PROFILEREAD PATH ORIGINAL_PATH INFOPATH USER TMP TEMP PRINTER HOSTNAME PS
 
 export SHELLOPTS
 set -o igncr
-
