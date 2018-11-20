@@ -10,6 +10,13 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
+;; set font size & screen size
+(set-face-attribute 'default nil :height 240)
+(setq default-frame-alist
+  '(
+    (width . 80)
+    (height . 50)
+   ))
 
 ;; Always end a file with a newline
 (setq require-final-newline t)
@@ -108,7 +115,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell moccur-edit)))
+    (plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell moccur-edit)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -231,7 +238,7 @@
 
 ;;; for emacsclient ;;;
 (require 'server)
-(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
+;(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
 ;(setq server-socket-dir "~/.emacs.d")
 (unless (server-running-p)
   (server-start))
@@ -295,3 +302,21 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (setq markdown-command "perl ~/bin/Markdown.pl")
+
+
+;; PlantUML
+;; - https://joppot.info/2017/10/30/4091
+;; .pu 拡張子のファイルを plantuml-mode で開く
+(add-to-list 'auto-mode-alist '("\.pu$" . plantuml-mode))
+;; plantuml.jar ファイルの絶対パス
+; followings does not work on cygwin environment:
+; - "~/tool/plantuml/plantuml.jar" => "/cygdrive" is not understood by java
+; - "C:\\Users\\0000119109\\tool\\plantuml\\plantuml.jar" => parsed as relative
+; - "c:/Users/0000119109/tool/plantuml/plantuml.jar" => parsed as relative
+(setq plantuml-jar-path "/cygwin/home/kurokawa/tool/plantuml/plantuml.jar")
+;; java にオプションを渡したい場合はここにかく
+(setq plantuml-java-options "")
+;; プレビューをsvg, png, utxtにしたい場合はここをコメントイン. default is svg?
+;;(setq plantuml-output-type "svg")
+;; 日本語を含むUMLを書く場合はUTF-8を指定
+(setq plantuml-options "-charset UTF-8")
