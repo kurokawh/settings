@@ -81,9 +81,6 @@ setenv	LESS	'--RAW-CONTROL-CHARS'  # -X is not needed because of my terminfo set
 setenv	PAGER	'lv -c'
 #setenv	GREP_OPTIONS	'-a'	# Process a binary file as if it were text.
 
-# java env
-alias	javac	c:/java/jdk1.6/bin/javac.exe
-alias	java	c:/java/jdk1.6/bin/java.exe
 
 set autolist=ambiguous
 source ~/.git-completion.tcsh
