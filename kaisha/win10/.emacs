@@ -108,7 +108,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
+    (plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -295,3 +295,21 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (setq markdown-command "perl ~/bin/Markdown.pl")
+
+
+;; PlantUML
+;; - https://joppot.info/2017/10/30/4091
+;; .pu 拡張子のファイルを plantuml-mode で開く
+(add-to-list 'auto-mode-alist '("\.pu$" . plantuml-mode))
+;; plantuml.jar ファイルの絶対パス
+; followings does not work on cygwin environment:
+; - "~/tool/plantuml/plantuml.jar" => "/cygdrive" is not understood by java
+; - "C:\\Users\\0000119109\\tool\\plantuml\\plantuml.jar" => parsed as relative
+; - "c:/Users/0000119109/tool/plantuml/plantuml.jar" => parsed as relative
+(setq plantuml-jar-path "/Users/0000119109/tool/plantuml/plantuml.jar")
+;; java にオプションを渡したい場合はここにかく
+(setq plantuml-java-options "")
+;; プレビューをsvg, png, utxtにしたい場合はここをコメントイン. default is svg?
+;;(setq plantuml-output-type "svg")
+;; 日本語を含むUMLを書く場合はUTF-8を指定
+(setq plantuml-options "-charset UTF-8")
