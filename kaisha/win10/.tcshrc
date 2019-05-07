@@ -74,6 +74,11 @@ alias   rmtmpf  "svn stat --no-ignore \!* | grep -v '\.git' | grep ^\[\?\|I\] | 
 alias   rmtmpd  "svn stat --no-ignore \!* | grep -v '\.git' | grep ^\[\?\|I\] | cut -c 8- | sed -e 's/'\'/'\\'\''/g' | xargs rm -rf "
 # vvvvv: NG because svn: E000022: Can't convert string from native encoding to 'UTF-8'
 # alias   svn     env LANG=C svn --non-interactive
+alias   svn_diff_phabricator "svn diff -x -U999999"
+
+### git ###
+alias git_diff_status "git diff --name-status"
+alias git_diff_names "git diff --name-only"
 
 
 #setenv	DISPLAY	localhost:0.0
