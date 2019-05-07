@@ -108,7 +108,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
+    (neotree plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -313,3 +313,11 @@
 ;;(setq plantuml-output-type "svg")
 ;; 日本語を含むUMLを書く場合はUTF-8を指定
 (setq plantuml-options "-charset UTF-8")
+
+
+;; neotree
+;; https://github.com/jaypei/emacs-neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)  ;; F8でトグル
+(setq neo-smart-open t)           ;; neotreeを開いた時のカレントファイルのディレクトリを表示する
+(setq neo-show-hidden-files t)    ;; 隠しファイルをデフォルトで表示
