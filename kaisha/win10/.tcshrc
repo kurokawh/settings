@@ -56,6 +56,8 @@ alias	psall	'ps -aux | grep kurokawa'
 
 alias	zip	'zip -r'
 alias	zip_pass	'zip -P'
+alias	unzip7	'7z x -tzip'
+alias	unzip7l	'7z l -tzip' # list files in archive
 alias	bz2	'bzip2 -dc $1 | tar xvf -'
 alias	bz2t	'bzip2 -dc $1 | tar tvf -'
 alias	enscript_hs	'enscript --highlight=haskell --color -C -o ~/tmp/out.html --language=html'
@@ -85,7 +87,6 @@ alias git_diff_names "git diff --name-only"
 setenv	LESS	'--RAW-CONTROL-CHARS'  # -X is not needed because of my terminfo setting.
 setenv	PAGER	'lv -c'
 #setenv	GREP_OPTIONS	'-a'	# Process a binary file as if it were text.
-
 
 set autolist=ambiguous
 source ~/.git-completion.tcsh
