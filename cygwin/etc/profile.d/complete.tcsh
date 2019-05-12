@@ -1284,6 +1284,31 @@ n@public@'`[ -r /usr/man/manp ]&& \ls -1 /usr/man/manp | sed s%\\.p.\*\$%%`'@ \
 		set-subnet-mask settings-export settings-import \
 		show-psn-state spawn-app suspend-app unmap update)"/
 
+    complete pc p/1/"(activate add application-kill application-list \
+    	     	application-resume application-start \
+		application-suspend boot-parameters clients connect \
+		console corefile ctrlptojson debug-agent-logging \
+		default default delete devlan-settings disconnect \
+		extract-structured-userdata extract-userdata \
+		extract-userfile extract-userfiles \
+		filesystem-agent-logging find fscase fsroot \
+		get-logging-level get-setting help hostexec info \
+		interactive jsontoctrlp list list-userfile map \
+		monitor name off on package-install package-list \
+		package-uninstall pcap pcap pcap playback \
+		playgo-dump-status playgo-next-chunk process-console \
+		process-dump process-info process-kill process-list \
+		process-objects process-spawn reboot record \
+		recover-cp screenshot set-hostname set-logging-level \
+		set-release-check-mode set-setting settings-export \
+		settings-import show-usage stop system-dump \
+		system-storage-status unmap update version video \
+		workspace-create workspace-destroy workspace-diff \
+		workspace-fsck workspace-list workspace-list-files \
+		workspace-mirror-hostinfo workspace-mirror-purge \
+		workspace-mirror-push workspace-mirror-validate \
+		workspace-pull workspace-push workspace-unlink)"/
+
 endif
 
 end:
