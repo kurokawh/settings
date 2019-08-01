@@ -181,6 +181,8 @@ def configure(keymap):
             keymap.command_InputKey("C-p")()
         def ctrl_shift_u():
             keymap.command_InputKey("C-u")()
+        def alt_shift_d():
+            keymap.command_InputKey("A-d")()
         ### <=== kuro
 
         ########################################################################
@@ -642,5 +644,9 @@ def configure(keymap):
         keymap_emacs["C-S-u"]           = repeat(mark(ctrl_shift_u))
         keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
         keymap_emacs["A-S-s"]           = reset(write_file)
+
+        keymap_emacs["C-c"]             = keymap.defineMultiStrokeKeymap("C-c")
+        keymap_emacs["C-c"]["C-c"]      = repeat(mark(alt_shift_d)) # for visual souce code
+        keymap_emacs["A-S-d"]           = repeat(mark(alt_shift_d))
         ### <===
 
