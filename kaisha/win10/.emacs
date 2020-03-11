@@ -111,7 +111,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (neotree plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
+    (typescript-mode neotree plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -279,6 +279,10 @@
 	 (setq js2-basic-offset 2)             ; indent 2 spaces
 	 (set-variable 'indent-tabs-mode nil)  ; use space not tab
 	 ))
+;; typescript
+(require 'typescript-mode)
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+
 
 ;; spell check
 ;; http://futurismo.biz/archives/5995
