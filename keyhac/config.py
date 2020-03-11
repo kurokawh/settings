@@ -43,6 +43,7 @@ def configure(keymap):
             if window.getProcessName() in ("cmd.exe",            # cmd
                                            # "explorer.exe",       # explorer
                                            # "POWERPNT.EXE",       # power point
+                                           "mstsc.exe",          # Remote Desktop
                                            "KeePass.exe",        # KeePass
                                            "emacs-X11.exe",      # Emacs-X11
                                            "emacs.exe",          # Emacs
