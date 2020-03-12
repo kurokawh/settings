@@ -28,6 +28,9 @@
 ;; http://rubikitch.com/2016/08/28/yes-or-no-p/
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; flush screen instead of ringing bell.
+;; https://qiita.com/ongaeshi/items/696407fc6c42072add54
+(setq visible-bell t)
 
 (line-number-mode t)
 (menu-bar-mode nil) ; disable menu bar
@@ -248,6 +251,7 @@
 (add-hook 'java-mode-hook (lambda () (gtags-mode 1)))
 (add-hook 'c-mode-hook (lambda () (gtags-mode 1)))
 (add-hook 'c++-mode-hook (lambda () (gtags-mode 1)))
+(add-hook 'csharp-mode-hook (lambda () (gtags-mode 1)))
 (setq gtags-mode-hook
       '(lambda ()
 ;         (local-set-key "\M-." 'gtags-find-tag)
