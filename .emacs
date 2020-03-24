@@ -1,3 +1,6 @@
+;;; load env dependent file at first if exists. ;;;
+(load-file "~/.emacs_local.el")
+
 ;;; package.el ;;;
 (require 'package)
 ;; MELPAを追加
@@ -10,13 +13,6 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
-;; set font size & screen size
-(set-face-attribute 'default nil :height 240)
-(setq default-frame-alist
-  '(
-    (width . 80)
-    (height . 50)
-   ))
 
 ;; Always end a file with a newline
 (setq require-final-newline t)
@@ -118,7 +114,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (typescript-mode neotree plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell moccur-edit)))
+    (typescript-mode neotree plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -139,20 +135,20 @@
 (setq cua-enable-cua-keys nil) ; そのままだと C-x が切り取りになってしまったりするので無効化
 
 ;;; auto-install.el ;;;
-(require 'auto-install)
-(auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
+;(require 'auto-install)
+;(auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
 ;(auto-install-compatibility-setup)
-(add-to-list 'load-path "~/.emacs.d/auto-install")
+;(add-to-list 'load-path "~/.emacs.d/auto-install")
 
 ;;; emacs-zissen ===>
 ;; auto-complete
-(when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories
-	       "~/.emacs.d/elisp/ac-dict")
-  (setq ac-auto-show-menu nil) ; disable auto show menu
-;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
-  (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
-  (ac-config-default))
+;; (when (require 'auto-complete-config nil t)
+;;   (add-to-list 'ac-dictionary-directories
+;; 	       "~/.emacs.d/elisp/ac-dict")
+;;   (setq ac-auto-show-menu nil) ; disable auto show menu
+;; ;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
+;;   (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
+;;   (ac-config-default))
 
 ;; setting of color_moccur
 (when (require 'color-moccur nil t)
@@ -199,8 +195,8 @@
 ;(add-to-list 'exec-path (concat (getenv "HOME") "/.cabal/bin"))
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
-(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.10.2/ghc-mod-5.5.0.0/elisp/")
-(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.10.2/hlint-1.9.30/")
+(add-to-list 'load-path 'local-ghcmod-dir)
+(add-to-list 'load-path 'local-hlint-dir)
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
 (add-hook 'haskell-mode-hook
@@ -321,7 +317,7 @@
 ; - "~/tool/plantuml/plantuml.jar" => "/cygdrive" is not understood by java
 ; - "C:\\Users\\0000119109\\tool\\plantuml\\plantuml.jar" => parsed as relative
 ; - "c:/Users/0000119109/tool/plantuml/plantuml.jar" => parsed as relative
-(setq plantuml-jar-path "/cygwin/home/kurokawa/tool/plantuml/plantuml.jar")
+(setq plantuml-jar-path '(concat (local-home-dir "tool/plantuml/plantuml.jar")))
 ;; java にオプションを渡したい場合はここにかく
 (setq plantuml-java-options "")
 ;; プレビューをsvg, png, utxtにしたい場合はここをコメントイン. default is svg?
