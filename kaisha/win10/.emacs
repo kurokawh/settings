@@ -1,3 +1,6 @@
+;;; load env dependent file at first if exists. ;;;
+(load-file "~/.emacs_local.el")
+
 ;;; package.el ;;;
 (require 'package)
 ;; MELPAを追加
@@ -192,8 +195,8 @@
 ;(add-to-list 'exec-path (concat (getenv "HOME") "/.cabal/bin"))
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
-(add-to-list 'load-path "~/AppData/Roaming/cabal/x86_64-windows-ghc-7.10.2/ghc-mod-5.5.0.0/elisp/")
-(add-to-list 'load-path "/mnt/c/sr/snapshots/8a26ed14/share/x86_64-windows-ghc-8.2.2/hlint-2.0.11/")
+(add-to-list 'load-path 'local-ghcmod-dir)
+(add-to-list 'load-path 'local-hlint-dir)
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
 (add-hook 'haskell-mode-hook
@@ -314,7 +317,7 @@
 ; - "~/tool/plantuml/plantuml.jar" => "/cygdrive" is not understood by java
 ; - "C:\\Users\\0000119109\\tool\\plantuml\\plantuml.jar" => parsed as relative
 ; - "c:/Users/0000119109/tool/plantuml/plantuml.jar" => parsed as relative
-(setq plantuml-jar-path "/Users/0000119109/tool/plantuml/plantuml.jar")
+(setq plantuml-jar-path '(concat (local-home-dir "tool/plantuml/plantuml.jar")))
 ;; java にオプションを渡したい場合はここにかく
 (setq plantuml-java-options "")
 ;; プレビューをsvg, png, utxtにしたい場合はここをコメントイン. default is svg?
