@@ -62,7 +62,7 @@
 (load "rubydb3x")
 
 ;;; subversion psvn ;;;
-(require 'psvn)
+;(require 'psvn)
 ;; Start the svn interface with M-x svn-status
 
 
@@ -128,21 +128,6 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil) ; そのままだと C-x が切り取りになってしまったりするので無効化
 
-;;; auto-install.el ;;;
-(require 'auto-install)
-(auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
-;(auto-install-compatibility-setup)
-(add-to-list 'load-path "~/.emacs.d/auto-install")
-
-;;; emacs-zissen ===>
-;; auto-complete
-(when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories
-	       "~/.emacs.d/elisp/ac-dict")
-  (setq ac-auto-show-menu nil) ; disable auto show menu
-;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
-  (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
-  (ac-config-default))
 
 ;; setting of color_moccur
 (when (require 'color-moccur nil t)
@@ -225,10 +210,10 @@
 (setq migemo-command "cmigemo")
 (setq migemo-options '("-q" "--emacs"))
 ;; Set your installed path
-(setq migemo-dictionary "/usr/local/share/migemo/euc-jp/migemo-dict") ; macではutf8はNG?
+(setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
 (setq migemo-user-dictionary nil)
 (setq migemo-regex-dictionary nil)
-(setq migemo-coding-system 'euc-jp) ; macではutf8はNG?
+(setq migemo-coding-system 'utf-8-unix)
 (load-library "migemo")
 (migemo-init)
 
