@@ -184,7 +184,10 @@
   (global-undo-tree-mode))
 
 ;;; <=== emacs zissen
-
+;;; emacs technique bible ===>
+(set-face-foreground (quote font-lock-regexp-grouping-backslash) "green3")
+(set-face-foreground (quote font-lock-regexp-grouping-construct) "green")
+;;; <=== emacs technique bible
 
 ;;; anything.el ;;;
 ;(require 'anything-startup)
