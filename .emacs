@@ -1,4 +1,11 @@
 ;;; load env dependent file at first if exists. ;;;
+(setq local-host-el-path
+      (concat "~/.emacs_local.el-"
+	      (getenv "HOSTNAME")))
+(message local-host-el-path)
+(if (file-exists-p local-host-el-path)
+    (load-file local-host-el-path)
+    (message (concat "skip loading (not found): " local-host-el-path)))
 (load-file "~/.emacs_local.el")
 
 ;;; package.el ;;;
@@ -114,7 +121,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (typescript-mode neotree plantuml-mode markdown-mode js2-mode icicles jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
+    (typescript-mode neotree plantuml-mode markdown-mode js2-mode jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -265,14 +272,6 @@
          (local-set-key "\C-j\C-j" 'gtags-pop-stack)
 	 ))
 
-;(require 'icicles)
-;(icy-mode)
-;(define-key icicle-mode-map "\C-h" 'backward-delete-char)
-;(setq icy-mode-hook
-;      '(lambda ()
-;         (local-set-key "\C-h" (quote delete-backward-char))
-;         ))
-
 
 ;; enable js2-mode for javascript
 (require 'js2-mode)
@@ -317,7 +316,7 @@
 ; - "~/tool/plantuml/plantuml.jar" => "/cygdrive" is not understood by java
 ; - "C:\\Users\\0000119109\\tool\\plantuml\\plantuml.jar" => parsed as relative
 ; - "c:/Users/0000119109/tool/plantuml/plantuml.jar" => parsed as relative
-(setq plantuml-jar-path '(concat (local-home-dir "tool/plantuml/plantuml.jar")))
+(setq plantuml-jar-path (concat local-home-dir "tool/plantuml/plantuml.jar"))
 ;; java にオプションを渡したい場合はここにかく
 (setq plantuml-java-options "")
 ;; プレビューをsvg, png, utxtにしたい場合はここをコメントイン. default is svg?
