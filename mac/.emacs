@@ -1,3 +1,13 @@
+;;; load env dependent file at first if exists. ;;;
+(setq local-host-el-path
+      (concat "~/.emacs_local.el-"
+	      (getenv "HOSTNAME")))
+(message local-host-el-path)
+(if (file-exists-p local-host-el-path)
+    (load-file local-host-el-path)
+    (message (concat "skip loading (not found): " local-host-el-path)))
+(load-file "~/.emacs_local.el")
+
 ;;; package.el ;;;
 (require 'package)
 ;; MELPAを追加
@@ -21,6 +31,9 @@
 ;; http://rubikitch.com/2016/08/28/yes-or-no-p/
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; flush screen instead of ringing bell.
+;; https://qiita.com/ongaeshi/items/696407fc6c42072add54
+(setq visible-bell t)
 
 (line-number-mode t)
 (menu-bar-mode nil) ; disable menu bar
@@ -108,7 +121,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode js2-mode jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell psvn flycheck-ghcmod)))
+    (typescript-mode neotree plantuml-mode markdown-mode js2-mode jaword wgrep visual-regexp undo-tree pkg-info migemo magit let-alist haskell-mode color-moccur csharp-mode auto-install auto-complete mic-paren intero inf-ruby flycheck-haskell)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
@@ -129,20 +142,20 @@
 (setq cua-enable-cua-keys nil) ; そのままだと C-x が切り取りになってしまったりするので無効化
 
 ;;; auto-install.el ;;;
-(require 'auto-install)
-(auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
+;(require 'auto-install)
+;(auto-install-update-emacswiki-package-name t) ; EmacsWikiからパッケージ名を取得
 ;(auto-install-compatibility-setup)
-(add-to-list 'load-path "~/.emacs.d/auto-install")
+;(add-to-list 'load-path "~/.emacs.d/auto-install")
 
 ;;; emacs-zissen ===>
 ;; auto-complete
-(when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories
-	       "~/.emacs.d/elisp/ac-dict")
-  (setq ac-auto-show-menu nil) ; disable auto show menu
-;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
-  (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
-  (ac-config-default))
+;; (when (require 'auto-complete-config nil t)
+;;   (add-to-list 'ac-dictionary-directories
+;; 	       "~/.emacs.d/elisp/ac-dict")
+;;   (setq ac-auto-show-menu nil) ; disable auto show menu
+;; ;  (define-key ac-mode-map (kbd "M-/") 'auto-complete) ; (override default completion)
+;;   (define-key ac-mode-map (kbd "M-?") 'auto-complete) ; S-M-/ pops up candidates
+;;   (ac-config-default))
 
 ;; setting of color_moccur
 (when (require 'color-moccur nil t)
@@ -171,7 +184,10 @@
   (global-undo-tree-mode))
 
 ;;; <=== emacs zissen
-
+;;; emacs technique bible ===>
+(set-face-foreground (quote font-lock-regexp-grouping-backslash) "green3")
+(set-face-foreground (quote font-lock-regexp-grouping-construct) "green")
+;;; <=== emacs technique bible
 
 ;;; anything.el ;;;
 ;(require 'anything-startup)
@@ -189,23 +205,13 @@
 ;(add-to-list 'exec-path (concat (getenv "HOME") "/.cabal/bin"))
 ;; ghc-flymake.el などがあるディレクトリ ghc-mod を ~/.emacs.d 以下で管理することにした
 ;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
-(add-to-list 'load-path "~/.stack/global-project/.stack-work/install/x86_64-osx/lts-3.10/7.10.2/share/x86_64-osx-ghc-7.10.2/ghc-mod-5.4.0.0/elisp") 
-(add-to-list 'load-path "~/.stack/snapshots/x86_64-osx/lts-3.10/7.10.2/share/x86_64-osx-ghc-7.10.2/hlint-1.9.21")
+(add-to-list 'load-path 'local-ghcmod-dir)
+(add-to-list 'load-path 'local-hlint-dir)
 (autoload 'ghc-init "ghc" nil t)
-;(autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
-
-(require 'flycheck)
-(require 'flycheck-haskell)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+(autoload 'ghc-debug "ghc" nil t) ; by kuro from http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html
 (add-hook 'haskell-mode-hook
 	  '(lambda ()
 	     (ghc-init)
-             (setq flycheck-checker 'haskell-ghc)
-;             (setq flycheck-checker 'haskell-hlint)
-;             (setq flycheck-disabled-checkers '(haskell-ghc))
-             (setq flycheck-disabled-checkers '(haskell-hlint))
-	     (flycheck-mode 1)
 	     (turn-on-haskell-indent)
 	     ))
 
@@ -225,10 +231,10 @@
 (setq migemo-command "cmigemo")
 (setq migemo-options '("-q" "--emacs"))
 ;; Set your installed path
-(setq migemo-dictionary "/usr/local/share/migemo/euc-jp/migemo-dict") ; macではutf8はNG?
+(setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
 (setq migemo-user-dictionary nil)
 (setq migemo-regex-dictionary nil)
-(setq migemo-coding-system 'euc-jp) ; macではutf8はNG?
+(setq migemo-coding-system 'utf-8-unix)
 (load-library "migemo")
 (migemo-init)
 
@@ -241,7 +247,8 @@
 
 ;;; for emacsclient ;;;
 (require 'server)
-;(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack ;xxx emacsclient cannot find socket if this is enabled.
+;(defun server-ensure-safe-dir (dir) "Noop" t) ; avoid freeze in gnupack
+;(setq server-socket-dir "~/.emacs.d")
 (unless (server-running-p)
   (server-start))
 
@@ -250,6 +257,7 @@
 (add-hook 'java-mode-hook (lambda () (gtags-mode 1)))
 (add-hook 'c-mode-hook (lambda () (gtags-mode 1)))
 (add-hook 'c++-mode-hook (lambda () (gtags-mode 1)))
+(add-hook 'csharp-mode-hook (lambda () (gtags-mode 1)))
 (setq gtags-mode-hook
       '(lambda ()
 ;         (local-set-key "\M-." 'gtags-find-tag)
@@ -267,14 +275,6 @@
          (local-set-key "\C-j\C-j" 'gtags-pop-stack)
 	 ))
 
-;(require 'icicles)
-;(icy-mode)
-;(define-key icicle-mode-map "\C-h" 'backward-delete-char)
-;(setq icy-mode-hook
-;      '(lambda ()
-;         (local-set-key "\C-h" (quote delete-backward-char))
-;         ))
-
 
 ;; enable js2-mode for javascript
 (require 'js2-mode)
@@ -284,6 +284,10 @@
 	 (setq js2-basic-offset 2)             ; indent 2 spaces
 	 (set-variable 'indent-tabs-mode nil)  ; use space not tab
 	 ))
+;; typescript
+(require 'typescript-mode)
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+
 
 ;; spell check
 ;; http://futurismo.biz/archives/5995
@@ -304,3 +308,29 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (setq markdown-command "perl ~/bin/Markdown.pl")
+
+
+;; PlantUML
+;; - https://joppot.info/2017/10/30/4091
+;; .pu 拡張子のファイルを plantuml-mode で開く
+(add-to-list 'auto-mode-alist '("\.pu$" . plantuml-mode))
+;; plantuml.jar ファイルの絶対パス
+; followings does not work on cygwin environment:
+; - "~/tool/plantuml/plantuml.jar" => "/cygdrive" is not understood by java
+; - "C:\\Users\\0000119109\\tool\\plantuml\\plantuml.jar" => parsed as relative
+; - "c:/Users/0000119109/tool/plantuml/plantuml.jar" => parsed as relative
+(setq plantuml-jar-path (concat local-home-dir "tool/plantuml/plantuml.jar"))
+;; java にオプションを渡したい場合はここにかく
+(setq plantuml-java-options "")
+;; プレビューをsvg, png, utxtにしたい場合はここをコメントイン. default is svg?
+;;(setq plantuml-output-type "svg")
+;; 日本語を含むUMLを書く場合はUTF-8を指定
+(setq plantuml-options "-charset UTF-8")
+
+
+;; neotree
+;; https://github.com/jaypei/emacs-neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)  ;; F8でトグル
+(setq neo-smart-open t)           ;; neotreeを開いた時のカレントファイルのディレクトリを表示する
+(setq neo-show-hidden-files t)    ;; 隠しファイルをデフォルトで表示
