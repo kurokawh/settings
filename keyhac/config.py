@@ -180,6 +180,8 @@ def configure(keymap):
                 keymap.command_InputKey("C-S-k")()
         def ctrl_shift_p():
             keymap.command_InputKey("C-p")()
+        def ctrl_shift_t():
+            keymap.command_InputKey("C-t")()
         def ctrl_shift_u():
             keymap.command_InputKey("C-u")()
         def alt_shift_d():
@@ -641,6 +643,7 @@ def configure(keymap):
         keymap_emacs["C-S-e"]           = repeat(mark(ctrl_shift_e))
         keymap_emacs["C-S-k"]           = repeat(mark(ctrl_shift_k))
         keymap_emacs["C-S-p"]           = repeat(mark(ctrl_shift_p))
+        keymap_emacs["C-S-p"]           = repeat(mark(ctrl_shift_t))
         keymap_emacs["C-S-s"]           = reset(save_buffer)
         keymap_emacs["C-S-u"]           = repeat(mark(ctrl_shift_u))
         keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
