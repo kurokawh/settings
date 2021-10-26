@@ -168,6 +168,8 @@ def configure(keymap):
                 keymap.command_InputKey("C-b")()
             else:
                 keymap.command_InputKey("C-S-b")()
+        def alt_shift_d():
+            keymap.command_InputKey("A-d")()
         def ctrl_shift_e():
             keymap.command_InputKey("S-End")()
             if keymap.getWindow().getClassName() == "_WwG": # Microsoft Word
@@ -180,12 +182,15 @@ def configure(keymap):
                 keymap.command_InputKey("C-S-k")()
         def ctrl_shift_p():
             keymap.command_InputKey("C-p")()
+        def alt_shift_s():
+            if keymap.getWindow().getProcessName() == "devenv.exe":
+                keymap.command_InputKey("A-S-s")()
+            else:
+                write_file()()
         def ctrl_shift_t():
             keymap.command_InputKey("C-t")()
         def ctrl_shift_u():
             keymap.command_InputKey("C-u")()
-        def alt_shift_d():
-            keymap.command_InputKey("A-d")()
         def ctrl_shift_y():
             keymap.command_InputKey("C-S-v")()
         ### <=== kuro
@@ -650,7 +655,7 @@ def configure(keymap):
         keymap_emacs["C-S-s"]           = reset(save_buffer)
         keymap_emacs["C-S-u"]           = repeat(mark(ctrl_shift_u))
         keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
-        keymap_emacs["A-S-s"]           = reset(write_file)
+        keymap_emacs["A-S-s"]           = reset(mark(alt_shift_s))
 
         keymap_emacs["C-c"]             = keymap.defineMultiStrokeKeymap("C-c")
         keymap_emacs["C-c"]["C-c"]      = repeat(mark(alt_shift_d)) # for visual souce code
