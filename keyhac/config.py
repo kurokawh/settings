@@ -163,8 +163,9 @@ def configure(keymap):
         def ctrl_shift_a():
             keymap.command_InputKey("S-Home")()
         def ctrl_shift_b():
-            if is_default_shortcut_requested(keymap.getWindow()):
-                # use C-S-b to BOLD FONT instead of C-b.
+            # use C-S-b to BOLD FONT instead of C-b.
+            if is_default_shortcut_requested(keymap.getWindow()) \
+               or keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
                 keymap.command_InputKey("C-b")()
             else:
                 keymap.command_InputKey("C-S-b")()
