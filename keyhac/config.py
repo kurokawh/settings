@@ -177,7 +177,8 @@ def configure(keymap):
                 if keymap_emacs.is_mark:
                     keymap.command_InputKey("Left-S")()
         def ctrl_shift_k():
-            if is_default_shortcut_requested(keymap.getWindow()):
+            if is_default_shortcut_requested(keymap.getWindow()) \
+               or keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
                 keymap.command_InputKey("C-k")()
             else:
                 keymap.command_InputKey("C-S-k")()
