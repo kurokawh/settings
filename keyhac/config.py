@@ -6,7 +6,7 @@
 
 # このスクリプトは、keyhac で動作します。
 #   https://sites.google.com/site/craftware/keyhac
-# スクリプトですので、使いやすいようにカスタマイズしてご利用ください。
+# スクリプトですので、使いやすいようにカスタマイズしてご利用くc-ださい。
 #
 # この内容は、utf-8-dos の coding-system で config.py の名前でセーブして
 # 利用してください。また、このスクリプトの最後の方にキーボードマクロの
@@ -160,6 +160,16 @@ def configure(keymap):
             else:
                 keymap.command_InputKey("Enter")()
             keymap_emacs.is_mark = False
+        def ctrl_shift_5():
+            # use C-S-5 to STRIKETHROUGH
+            if is_default_shortcut_requested(keymap.getWindow()): #power point
+                keymap.command_InputKey("Alt", "h", "4")()
+            elif keymap.getWindow().getProcessName() == "onenoteim.exe" or keymap.getWindow().getProcessName() == "ONENOTE.EXE": # OneNote
+                keymap.command_InputKey("C-Minus")()
+            elif keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
+                keymap.command_InputKey("A-S-5")()
+            else:
+                keymap.command_InputKey("C-S-5")()
         def ctrl_shift_a():
             keymap.command_InputKey("S-Home")()
         def ctrl_shift_b():
@@ -650,6 +660,7 @@ def configure(keymap):
         keymap_emacs["A-n"]             = reset(search_next)
         keymap_emacs["A-p"]             = reset(search_prev)
         #keymap_emacs["A-%"]             = repeat(mark(replace_string))
+        keymap_emacs["C-S-5"]           = repeat(mark(ctrl_shift_5))
         keymap_emacs["C-S-a"]           = repeat(mark(ctrl_shift_a))
         keymap_emacs["C-S-b"]           = repeat(mark(ctrl_shift_b))
         keymap_emacs["C-S-e"]           = repeat(mark(ctrl_shift_e))
