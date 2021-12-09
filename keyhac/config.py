@@ -208,6 +208,10 @@ def configure(keymap):
             keymap.command_InputKey("C-u")()
         def ctrl_shift_y():
             keymap.command_InputKey("C-S-v")()
+        def ctrl_shift_ob():
+            keymap.command_InputKey("C-OpenBracket")()
+        def ctrl_shift_cb():
+            keymap.command_InputKey("C-CloseBracket")()
         ### <=== kuro
 
         ########################################################################
@@ -670,6 +674,8 @@ def configure(keymap):
         keymap_emacs["C-S-y"]           = repeat(mark(ctrl_shift_y))
         keymap_emacs["C-S-s"]           = reset(save_buffer)
         keymap_emacs["C-S-u"]           = repeat(mark(ctrl_shift_u))
+        keymap_emacs["C-S-OpenBracket"]           = repeat(mark(ctrl_shift_ob))
+        keymap_emacs["C-S-CloseBracket"]           = repeat(mark(ctrl_shift_cb))
         keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
         keymap_emacs["A-S-s"]           = reset(mark(alt_shift_s))
 
