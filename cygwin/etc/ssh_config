@@ -1,2 +1,3 @@
-PubkeyAcceptedKeyTypes +ssh-dss
-
+PubkeyAcceptedKeyTypes=+ssh-dss
+HostKeyAlgorithms=+ssh-rsa
+StrictHostKeyChecking=no
