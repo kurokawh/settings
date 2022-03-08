@@ -1,3 +1,17 @@
+# copy to /etc/ssh_config
 PubkeyAcceptedKeyTypes=+ssh-dss
 HostKeyAlgorithms=+ssh-rsa
 StrictHostKeyChecking=no
+
+# avoid waiting for timeout.
+# https://orebibou.com/ja/home/201412/20141218_001/
+AddressFamily=inet
+GSSAPIAuthentication=no
+
+# for github.com
+# avoid "ssh: connect to host github.com port 22: Connection timed out"
+Host github.com
+   User git
+   Hostname ssh.github.com
+   Port 443
+   IdentityFile ~/.ssh/id_rsa
