@@ -106,12 +106,20 @@ def configure(keymap):
         # 例： POWERPOINT.EXE では C-b は左移動ではなく、強調文字設定したいので
         # S-C-b を C-b に割り当てる。 主に ctrl_shift_?() 向け。
         def is_default_shortcut_requested(window):
-            if window.getProcessName() in ("POWERPNT.EXE",       # power point
-                                           "EXCEL.EXE",          # excel
-                                           "WINWORD.EXE",        # word
-                                           "firefox.exe"):       # Firefox
+            if (window.getProcessName() in ("POWERPNT.EXE",       # power point
+                                            "EXCEL.EXE",          # excel
+                                            "WINWORD.EXE",        # word
+                                            "firefox.exe")) \
+            or is_onenote(window) \
+            or is_chrome(window):                             # corome
                 return True
             return False
+        def is_onenote(window):
+            return window.getProcessName() == "onenoteim.exe" \
+                or window.getProcessName() == "ONENOTE.EXE" # OneNote
+        def is_chrome(window):
+            return window.getClassName() == "Chrome_WidgetWin_1" # chrome
+
 
         def forward_word():
             keymap.command_InputKey("C-Right")()
@@ -136,20 +144,22 @@ def configure(keymap):
         def jump_to_line(): 
             keymap.command_InputKey("C-g")()
         def search_next(): 
-            if keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
+            window = keymap.getWindow()
+            if is_chrome(window):   # chrome
                 keymap.command_InputKey("C-g")()
             #VS or FireFox
-            if keymap.getWindow().getProcessName() == "devenv.exe" \
-               or keymap.getWindow().getProcessName() == "firefox.exe":
+            if window.getProcessName() == "devenv.exe" \
+               or window.getProcessName() == "firefox.exe":
                 keymap.command_InputKey("F3")()
             else:
                 keymap.command_InputKey("A-n")() # same as defult for other apps
         def search_prev(): 
-            if keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
+            window = keymap.getWindow()
+            if is_chrome(window):   # chrome
                 keymap.command_InputKey("C-S-g")()
             #VS or FireFox
-            if keymap.getWindow().getProcessName() == "devenv.exe" \
-               or keymap.getWindow().getProcessName() == "firefox.exe":
+            if window.getProcessName() == "devenv.exe" \
+               or window.getProcessName() == "firefox.exe":
                 keymap.command_InputKey("S-F3")()
             else:
                 keymap.command_InputKey("A-p")() # same as defult for other apps
@@ -161,21 +171,21 @@ def configure(keymap):
                 keymap.command_InputKey("Enter")()
             keymap_emacs.is_mark = False
         def ctrl_shift_5():
+            window = keymap.getWindow()
             # use C-S-5 to STRIKETHROUGH
-            if is_default_shortcut_requested(keymap.getWindow()): #power point
-                keymap.command_InputKey("Alt", "h", "4")()
-            elif keymap.getWindow().getProcessName() == "onenoteim.exe" or keymap.getWindow().getProcessName() == "ONENOTE.EXE": # OneNote
+            if is_onenote(window): # one note ***
                 keymap.command_InputKey("C-Minus")()
-            elif keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
+            elif is_chrome(window):            # chrome (for googledoc not for confluence) ***
                 keymap.command_InputKey("A-S-5")()
+            elif is_default_shortcut_requested(keymap.getWindow()): # *NOTE* onenote & chrome must ahead because is_default_shortcut_requested() contains them
+                keymap.command_InputKey("Alt", "h", "4")()
             else:
                 keymap.command_InputKey("C-S-5")()
         def ctrl_shift_a():
             keymap.command_InputKey("S-Home")()
         def ctrl_shift_b():
             # use C-S-b to BOLD FONT instead of C-b.
-            if is_default_shortcut_requested(keymap.getWindow()) \
-               or keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
+            if is_default_shortcut_requested(keymap.getWindow()):
                 keymap.command_InputKey("C-b")()
             else:
                 keymap.command_InputKey("C-S-b")()
@@ -190,8 +200,7 @@ def configure(keymap):
             # link
             if keymap.getWindow().getProcessName() == "slack.exe":
                 keymap.command_InputKey("C-S-u")()
-            elif is_default_shortcut_requested(keymap.getWindow()) \
-               or keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
+            elif is_default_shortcut_requested(keymap.getWindow()):
                 keymap.command_InputKey("C-k")()
             else:
                 keymap.command_InputKey("C-S-k")()
@@ -467,7 +476,7 @@ def configure(keymap):
             keymap_emacs.is_mark = False
 
         def universal_argument():
-            if keymap.getWindow().getClassName() == "Chrome_WidgetWin_1": # chrome
+            if is_chrome(keymap.getWindow()):   # chrome
                 keymap.command_InputKey("C-u")() # display source
             else:
                 keymap_emacs.is_universal_argument = True
