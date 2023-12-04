@@ -196,6 +196,8 @@ def configure(keymap):
             if keymap.getWindow().getClassName() == "_WwG": # Microsoft Word
                 if keymap_emacs.is_mark:
                     keymap.InputKeyCommand("Left-S")()
+        def ctrl_shift_h():
+            keymap.InputKeyCommand("C-h")()
         def ctrl_shift_k():
             # link
             if keymap.getWindow().getProcessName() == "slack.exe":
@@ -677,9 +679,10 @@ def configure(keymap):
         keymap_emacs["C-S-a"]           = repeat(mark(ctrl_shift_a))
         keymap_emacs["C-S-b"]           = repeat(mark(ctrl_shift_b))
         keymap_emacs["C-S-e"]           = repeat(mark(ctrl_shift_e))
+        keymap_emacs["C-S-h"]           = repeat(mark(ctrl_shift_h))
         keymap_emacs["C-S-k"]           = repeat(mark(ctrl_shift_k))
         keymap_emacs["C-S-p"]           = repeat(mark(ctrl_shift_p))
-        keymap_emacs["C-S-p"]           = repeat(mark(ctrl_shift_t))
+        keymap_emacs["C-S-t"]           = repeat(mark(ctrl_shift_t))
         keymap_emacs["C-S-y"]           = repeat(mark(ctrl_shift_y))
         keymap_emacs["C-S-s"]           = reset(save_buffer)
         keymap_emacs["C-S-u"]           = repeat(mark(ctrl_shift_u))
