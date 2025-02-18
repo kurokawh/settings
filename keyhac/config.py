@@ -450,13 +450,12 @@ def configure(keymap):
         ########################################################################
         def automate_outlook_rules():
             # 0. Open Mail View (Ctrl + 1) & Focus Inbox (Ctrl + Shift + I)
-            # keymap.InputKeyCommand("C-1")()
-            # sleep(1.0)
-            # keymap.InputKeyCommand("C-S-i")()
-            # sleep(1.0)
+            #keymap.InputKeyCommand("C-1")()
+            #sleep(2.0)
+            #keymap.InputKeyCommand("C-S-i")()   # THIS DOES NOT WORK. seems to pefrome C-R (reply) 
+            #sleep(2.0)
 
             # 1. 「仕分けルールの通知と管理」を実行 (Ctrl + Shift + O)
-            #keymap.InputKeyCommand("C-S-O")()
             keymap.InputKeyCommand("A-h")()
             keymap.InputKeyCommand("r")()
             keymap.InputKeyCommand("r")()
@@ -464,8 +463,6 @@ def configure(keymap):
             sleep(1.0)  # ウィンドウが開くまで待機
         
             # 2. 「自動仕分けウィザード」が表示された場合の確認
-            # クライアントを選択 (Enterキーでデフォルトを選択)
-            #keymap.InputKeyCommand("Enter")()
             keymap.InputKeyCommand("A-c")()
             sleep(0.5)
         
@@ -474,28 +471,22 @@ def configure(keymap):
             sleep(1.0)  # ダイアログが開くまで待機
         
             # 4. 「すべてを選択」で全ルールを選択
-            #keymap.InputKeyCommand("Alt+A")()  # Alt + A (すべてを選択)
             keymap.InputKeyCommand("A-e")()
             sleep(0.5)
         
             # 5. 「対象フォルダー」に「受信トレイ」を指定
-            #keymap.InputKeyCommand("Alt+F")()  # Alt + F (フォルダー選択)
-            #sleep(0.5)
-            #keymap.InputKeyCommand("Down")()  # 必要なら矢印キーでフォルダーを選択
-            #sleep(0.5)
-            #keymap.InputKeyCommand("Enter")()
+            # ???
         
             # 6. 「今すぐ実行」ボタンを押下
-            #keymap.InputKeyCommand("Alt+N")()  # Alt + N (今すぐ実行)
             keymap.InputKeyCommand("A-o")()
             #sleep(5.0)  # 処理完了を待機
         
             # 7. 「仕分けルールの実行」ダイアログをクローズ
-            #keymap.InputKeyCommand("Alt+C")()  # Alt + C (閉じる)
+            #keymap.InputKeyCommand("A-c")()  # Alt + C (閉じる)
             #sleep(0.5)
         
             # 8. 「仕分けルールと通知」ダイアログをクローズ
-            #keymap.InputKeyCommand("Alt+C")()  # Alt + C (閉じる)
+            #keymap.InputKeyCommand("A-c")()  # Alt + C (閉じる)
 
 
         ########################################################################
