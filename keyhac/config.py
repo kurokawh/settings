@@ -449,27 +449,33 @@ def configure(keymap):
         # outlook: run rules
         ########################################################################
         def automate_outlook_rules():
+            # 0. Open Mail View (Ctrl + 1) & Focus Inbox (Ctrl + Shift + I)
+            # keymap.InputKeyCommand("C-1")()
+            # sleep(1.0)
+            # keymap.InputKeyCommand("C-S-i")()
+            # sleep(1.0)
+
             # 1. 「仕分けルールの通知と管理」を実行 (Ctrl + Shift + O)
             #keymap.InputKeyCommand("C-S-O")()
-            keymap.InputKeyCommand("A-H")()
-            keymap.InputKeyCommand("R")()
-            keymap.InputKeyCommand("R")()
-            keymap.InputKeyCommand("L")()
+            keymap.InputKeyCommand("A-h")()
+            keymap.InputKeyCommand("r")()
+            keymap.InputKeyCommand("r")()
+            keymap.InputKeyCommand("l")()
             sleep(1.0)  # ウィンドウが開くまで待機
         
             # 2. 「自動仕分けウィザード」が表示された場合の確認
             # クライアントを選択 (Enterキーでデフォルトを選択)
             #keymap.InputKeyCommand("Enter")()
-            keymap.InputKeyCommand("A-C")()
+            keymap.InputKeyCommand("A-c")()
             sleep(0.5)
         
             # 3. 「仕分けルールの実行」を開く (Alt + Rを想定)
-            keymap.InputKeyCommand("A-R")()
+            keymap.InputKeyCommand("A-r")()
             sleep(1.0)  # ダイアログが開くまで待機
         
             # 4. 「すべてを選択」で全ルールを選択
             #keymap.InputKeyCommand("Alt+A")()  # Alt + A (すべてを選択)
-            keymap.InputKeyCommand("A-E")()
+            keymap.InputKeyCommand("A-e")()
             sleep(0.5)
         
             # 5. 「対象フォルダー」に「受信トレイ」を指定
@@ -481,8 +487,8 @@ def configure(keymap):
         
             # 6. 「今すぐ実行」ボタンを押下
             #keymap.InputKeyCommand("Alt+N")()  # Alt + N (今すぐ実行)
-            keymap.InputKeyCommand("A-O")()
-            sleep(5.0)  # 処理完了を待機
+            keymap.InputKeyCommand("A-o")()
+            #sleep(5.0)  # 処理完了を待機
         
             # 7. 「仕分けルールの実行」ダイアログをクローズ
             #keymap.InputKeyCommand("Alt+C")()  # Alt + C (閉じる)
