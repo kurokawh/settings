@@ -45,6 +45,7 @@ def configure(keymap):
                                            # "POWERPNT.EXE",       # power point
                                            "mstsc.exe",          # Remote Desktop
                                            "KeePass.exe",        # KeePass
+                                           "emacs-w32.exe",      # Emacs-w32
                                            "emacs-X11.exe",      # Emacs-X11
                                            "emacs.exe",          # Emacs
                                            "XWin.exe",           # Cygwin/X
@@ -223,9 +224,15 @@ def configure(keymap):
         def ctrl_shift_y():
             keymap.InputKeyCommand("C-S-v")()
         def ctrl_shift_ob():
-            keymap.InputKeyCommand("C-OpenBracket")()
+            if keymap.getWindow().getProcessName() == "WINWORD.EXE":
+                keymap.InputKeyCommand("S-C-M")() # un-indent
+            else:
+                keymap.InputKeyCommand("C-OpenBracket")()
         def ctrl_shift_cb():
-            keymap.InputKeyCommand("C-CloseBracket")()
+            if keymap.getWindow().getProcessName() == "WINWORD.EXE":
+                keymap.InputKeyCommand("C-M")() # indent
+            else:
+                keymap.InputKeyCommand("C-CloseBracket")()
         ### <=== kuro
 
         ########################################################################
@@ -733,8 +740,8 @@ def configure(keymap):
         keymap_emacs["C-S-y"]           = repeat(mark(ctrl_shift_y))
         keymap_emacs["C-S-s"]           = reset(save_buffer)
         keymap_emacs["C-S-u"]           = repeat(mark(ctrl_shift_u))
-        keymap_emacs["C-S-OpenBracket"]           = repeat(mark(ctrl_shift_ob))
-        keymap_emacs["C-S-CloseBracket"]           = repeat(mark(ctrl_shift_cb))
+        keymap_emacs["C-S-OpenBracket"]           = repeat(mark(ctrl_shift_ob)) # "[" key
+        keymap_emacs["C-S-CloseBracket"]          = repeat(mark(ctrl_shift_cb)) # "]" key
         keymap_emacs["A-S-C"]           = reset(windows_copy) # for error code viewer
         keymap_emacs["A-S-s"]           = reset(mark(alt_shift_s))
 
