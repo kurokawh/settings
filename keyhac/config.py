@@ -149,21 +149,23 @@ def configure(keymap):
             keymap.InputKeyCommand("C-g")()
         def search_next(): 
             window = keymap.getWindow()
-            if is_chrome(window):   # chrome
+            if is_chrome(window):
+                # chrome
                 keymap.InputKeyCommand("C-g")()
-            #VS or FireFox
-            if window.getProcessName() == "devenv.exe" \
+            elif window.getProcessName() == "devenv.exe" \
                or window.getProcessName() == "firefox.exe":
+                #VS or FireFox
                 keymap.InputKeyCommand("F3")()
             else:
                 keymap.InputKeyCommand("A-n")() # same as defult for other apps
         def search_prev(): 
             window = keymap.getWindow()
-            if is_chrome(window):   # chrome
+            if is_chrome(window):
+                # chrome
                 keymap.InputKeyCommand("C-S-g")()
-            #VS or FireFox
-            if window.getProcessName() == "devenv.exe" \
+            elif window.getProcessName() == "devenv.exe" \
                or window.getProcessName() == "firefox.exe":
+                #VS or FireFox
                 keymap.InputKeyCommand("S-F3")()
             else:
                 keymap.InputKeyCommand("A-p")() # same as defult for other apps
