@@ -153,8 +153,9 @@ def configure(keymap):
                 # chrome
                 keymap.InputKeyCommand("C-g")()
             elif window.getProcessName() == "devenv.exe" \
-               or window.getProcessName() == "firefox.exe":
-                #VS or FireFox
+               or window.getProcessName() == "firefox.exe" \
+               or window.getProcessName() == "AcroRd32.exe":
+                #VS or FireFox or Acrobat Reader
                 keymap.InputKeyCommand("F3")()
             else:
                 keymap.InputKeyCommand("A-n")() # same as defult for other apps
@@ -164,8 +165,9 @@ def configure(keymap):
                 # chrome
                 keymap.InputKeyCommand("C-S-g")()
             elif window.getProcessName() == "devenv.exe" \
-               or window.getProcessName() == "firefox.exe":
-                #VS or FireFox
+               or window.getProcessName() == "firefox.exe" \
+               or window.getProcessName() == "AcroRd32.exe":
+                #VS or FireFox or Acrobat Reader
                 keymap.InputKeyCommand("S-F3")()
             else:
                 keymap.InputKeyCommand("A-p")() # same as defult for other apps
